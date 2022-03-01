@@ -27,6 +27,7 @@ Outline of the code:
     - The user will now guess the person
         - If the user guesses correctly they get an advantage in the fight (they begin the take-down)
         - If the user guesses incorrectly they get a disadvantage, the murderer attacks them first 
+
 # The Fight:
 
 # The Ending:
