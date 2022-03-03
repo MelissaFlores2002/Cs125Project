@@ -1,0 +1,35 @@
+# CODE 
+
+int whoItIs(int num)
+{
+  int murderer;
+  srand( time( NULL ) );
+  murderer = rand()%num+1;
+return murderer;
+}
+
+IN MAIN:
+
+int murderer, weapon, room;
+
+murderer = whoItIs(6);
+weapon = whoItIs(10);
+room = whoItIs(5);
+printf("%d, %d, %d", murderer, weapon, room);
+
+%%
+MURDER SUSPECTS
+Ms.Blue
+Mr.Mustard
+
+
+WEAPONS
+Knife = 1
+Gun = 3
+Candlestick = 0.5
+
+
+ROOM
+Ballroom
+Game Room
+Dining Room
