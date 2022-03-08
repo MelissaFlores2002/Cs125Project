@@ -1,0 +1,23 @@
+%%%%%%%%%% HOW THE GUESSES WILL GO THROUGH MAIN
+
+int userguess(int guess, int real)
+{
+  if (guess == real)
+  {
+    FILE *ptr = fopen(records.txt", "a");
+    fprintf(ptr, "%d\n", guess);
+    fclose(ptr);
+    
+    printf("Your guess is correct\n");
+    return 0;
+   }
+   else
+   {
+    FILE *ptr = fopen(records.txt", "a");
+    fprintf(ptr, "%d\n", guess);
+    fclose(ptr);
+    
+    printf("Incorrect\n");
+    return 1;
+    }
+  }
