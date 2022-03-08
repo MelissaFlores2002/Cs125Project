@@ -12,24 +12,8 @@ IN MAIN:
 
 int murderer, weapon, room;
 
-murderer = whoItIs(6);
+murderer = whoItIs(7);
 weapon = whoItIs(10);
-room = whoItIs(5);
+room = whoItIs(7);
 printf("%d, %d, %d", murderer, weapon, room);
 
-%%
-MURDER SUSPECTS
-Ms.Blue
-Mr.Mustard
-
-
-WEAPONS
-Knife = 1
-Gun = 3
-Candlestick = 0.5
-
-
-ROOM
-Ballroom
-Game Room
-Dining Room
