@@ -4,8 +4,8 @@ int userguess(int guess, int real)
 {
   if (guess == real)
   {
-    FILE *ptr = fopen(records.txt", "a");
-    fprintf(ptr, "%d\n", guess);
+    FILE *ptr = fopen("records.txt", "a");
+    fprintf(ptr, "Correct: %d\n", guess);
     fclose(ptr);
     
     printf("Your guess is correct\n");
@@ -14,7 +14,7 @@ int userguess(int guess, int real)
    else
    {
     FILE *ptr = fopen(records.txt", "a");
-    fprintf(ptr, "%d\n", guess);
+    fprintf(ptr, "Incorrect: %d\n", guess);
     fclose(ptr);
     
     printf("Incorrect\n");
