@@ -1,6 +1,6 @@
 # CODE 
 
-int whoItIs(int num)
+int whoIsIt(int num)
 {
   int murderer;
   srand( time( NULL ) );
@@ -12,8 +12,8 @@ IN MAIN:
 
 int murderer, weapon, room;
 
-murderer = whoItIs(7);
-weapon = whoItIs(10);
-room = whoItIs(7);
+murderer = whoIsIt(7);
+weapon = whoIsIt(10);
+room = whoIsIt(7);
 printf("%d, %d, %d", murderer, weapon, room);
 
