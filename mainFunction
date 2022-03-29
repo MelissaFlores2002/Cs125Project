@@ -1,1 +1,18 @@
 Main Funtion: 
+
+#include<stdio.h>
+#include <stdlib.h>
+#include<time.h>
+#include "userGuess.h"
+
+int main()
+{
+  userGuess Guess[4];
+  int murderer, weapon, room;
+
+  murderer = whoIsIt(7);
+  weapon = whoIsIt(10);
+  room = whoIsIt(7);
+  printf("%d, %d, %d", murderer, weapon, room);
+  return 0;
+}
