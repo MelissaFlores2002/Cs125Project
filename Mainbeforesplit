@@ -1,0 +1,91 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include<time.h>
+//#include "userGuess.h"
+//#include "whoIsIt.h"
+
+void openit()
+{
+    char str[300];
+    int x;
+    
+    FILE *f1 = fopen("extrainfo.txt", "r");
+    for(x=0; x<36;x++)
+    {
+        fgets(str,300,f1);
+        printf("%s", str);
+    }
+   fclose(f1);
+}
+
+void story(int y, int z)
+{
+    char str[300];
+    int x;
+    x = y;
+    
+    FILE *f1 = fopen("Storyline.txt", "r");
+    for(x=y; x<z;x++)
+    {
+        fgets(str,300,f1);
+        printf("%s", str);
+    }
+   fclose(f1);
+}
+
+int whoIsIt(int num)
+{
+  int murderer;
+  srand( time( NULL ) );
+  murderer = rand()%num+1;
+return murderer;
+}
+
+int userguess(int guess, int real)
+{
+  if (guess == real)
+  {
+    FILE *ptr = fopen("records.txt", "a");
+    fprintf(ptr, "Correct: %d\n", guess);
+    fclose(ptr);
+    
+    printf("Your guess is correct\n");
+    return 0;
+   }
+   else
+   {
+    FILE *ptr = fopen("records.txt", "a");
+    fprintf(ptr, "Incorrect: %d\n", guess);
+    fclose(ptr);
+    
+    printf("Incorrect\n");
+    return 1;
+    }
+  }
+  
+typedef struct userGuess{
+  int murderer;
+  int weapon;
+  int room;
+} userGuess;
+
+int main()
+{
+  userGuess Guess;
+  int murderer, weapon, room;
+  int countermur, countwea, countroo;
+  
+    openit();
+    story(0, 19);
+    
+  murderer = whoIsIt(7);
+  weapon = whoIsIt(10);
+  room = whoIsIt(7);
+  
+ printf("%d, %d, %d", murderer, weapon, room);
+ 
+ printf("\n\nWho is the murderer: (please enter an integer)");
+ scanf("%d", &Guess.murderer);
+ 
+  return 0;
+}
