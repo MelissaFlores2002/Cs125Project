@@ -3,15 +3,7 @@ Main Funtion:
 #include<stdio.h>
 #include <stdlib.h>
 #include<time.h>
-
-struct userGuess 
-{
-  int room
-  int weapon
-  int murderer
- };
-
-typedef struct userGuess userGuess;
+#include "userGuess.h"
 
 int main()
 {
