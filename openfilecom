@@ -1,0 +1,31 @@
+//Opening files
+
+void openit()
+{
+    char str[300];
+    int x;
+    
+    FILE *f1 = fopen("extrainfo.txt", "r");
+    for(x=0; x<36;x++)
+    {
+        fgets(str,300,f1);
+        printf("%s", str);
+    }
+   fclose(f1);
+}
+
+void story(int y, int z)
+{
+    char str[300];
+    int x;
+    x = y;
+    
+    FILE *f1 = fopen("story.txt", "r");
+    for(x=y; x<z;x++)
+    {
+        fgets(str,300,f1);
+        printf("%s", str);
+    }
+   fclose(f1);
+}
+
