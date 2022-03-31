@@ -4,6 +4,8 @@
 //#include "userGuess.h"
 //#include "whoIsIt.h"
 
+
+
 void openit()
 {
     char str[300];
@@ -33,14 +35,6 @@ void story(int y, int z)
    fclose(f1);
 }
 
-int whoIsIt(int num)
-{
-  int murderer;
-  srand( time( NULL ) );
-  murderer = rand()%num+1;
-return murderer;
-}
-
 int userguess(int guess, int real)
 {
   if (guess == real)
@@ -62,18 +56,28 @@ int userguess(int guess, int real)
     return 1;
     }
   }
-  
+
+
+int whoIsIt(int num)
+{
+  int murderer;
+  srand( time( NULL ) );
+  murderer = rand()%num+1;
+return murderer;
+}
+
 typedef struct userGuess{
   int murderer;
   int weapon;
   int room;
 } userGuess;
 
+
 int main()
 {
   userGuess Guess;
   int murderer, weapon, room;
-  int countermur, countwea, countroo;
+  int countermur, countwea, countroo, c, again;
   
     openit();
     story(0, 19);
@@ -87,5 +91,98 @@ int main()
  printf("\n\nWho is the murderer: (please enter an integer)");
  scanf("%d", &Guess.murderer);
  
+ c = userguess(Guess.murderer, murderer);
+ 
+ if (c==0)
+ { 
+     //call storyline to move storyline
+ }
+  else if(c==1)
+{
+   printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+   scanf("%d", &again);
+    while (again ==1 )
+    {
+        printf("\n\nWho is the murderer: (please enter an integer)");
+        scanf("%d", &Guess.murderer);
+        c = userguess(Guess.murderer, murderer);
+        
+        if (c==0)
+ { 
+     //call storyline to move storyline
+     again = 0;
+ }
+      else
+      {
+          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+          scanf("%d", &again);
+      }
+    }
+}
+
+
+     printf("\nWhere did it happen: (please enter an integrer)");
+     scanf("%d", &Guess.room);
+      c = userguess(Guess.room, room);
+
+     if (c==0)
+ { 
+     //call storyline to move storyline
+ }
+  else if(c==1)
+{
+   printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+   scanf("%d", &again);
+    while (again ==1 )
+    {
+        printf("\n\nWhere did it happen: (please enter an integer)");
+        scanf("%d", &Guess.room);
+        c = userguess(Guess.room, room);
+        
+        if (c==0)
+ { 
+     //call storyline to move storyline
+     again = 0;
+ }
+      else
+      {
+          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+          scanf("%d", &again);
+      }
+    }
+}
+
+     printf("\nWhat was used to kill them: (please enter an integrer)");
+     scanf("%d", &Guess.weapon);
+      c = userguess(Guess.weapon, weapon);
+
+     if (c==0)
+ { 
+     //call storyline to move storyline
+ }
+  else if(c==1)
+{
+   printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+   scanf("%d", &again);
+    while (again ==1 )
+    {
+        printf("\n\nWhere did it happen: (please enter an integer)");
+        scanf("%d", &Guess.weapon);
+        c = userguess(Guess.weapon, weapon);
+        
+        if (c==0)
+ { 
+     //call storyline to move storyline
+     again = 0;
+ }
+      else
+      {
+          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+          scanf("%d", &again);
+      }
+    }
+
+  printf("\n\nTehe you did it.");
+}
   return 0;
 }
