@@ -2,13 +2,18 @@
 
 int combatFunction(int attackingPlayerNumber, blockingPlayerNumber){
 
-	int attackerChoice, blockerChoice, inputCheck;
+	int blockerChoice, inputCheck;
+	struct attack{
+		int attackerChoice;
+		int attackSuccess;
+		} userAttack;
+	
 
 	printf("Player %d you are attacking now, press 1, 2, or 3 to attack: ", attackingPlayerNumber);
-	inputCheck=scanf("%d", attackerChoice);
-	while ((inputCheck != 1)) || (attackerChoice <1) || (attackerChoice >3){
+	inputCheck=scanf("%d", userAttack.attackerChoice);
+	while ((inputCheck != 1)) || (userAttack.attackerChoice <1) || (userAttack.attackerChoice >3){
 		printf("Please try again, press 1, 2, or 3 to attack: ");
-		inputCheck=scanf("%d", attackerChoice);
+		inputCheck=scanf("%d", userAttack.attackerChoice);
 	}
 
 	printf("Player %d is attacking now, Player %d, press 1, 2, or 3 to block their attack: ", attackingPlayerNumber, blockingPlayerNumber);
@@ -19,7 +24,8 @@ int combatFunction(int attackingPlayerNumber, blockingPlayerNumber){
 	}
 
 	if (attackerChoice == blockerChoice)
-		return 1;
+		userAttack.attackerSuccess = 1;
 	else
-		return 0;
+		userAttack.attackerSuccess = 0;
+	return userAttack;
 }
