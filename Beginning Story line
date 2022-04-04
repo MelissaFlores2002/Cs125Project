@@ -55,3 +55,68 @@ Mrs.White speaks up. "I know who did it." You look at them with confusion and he
 
 You decide that listening to their comments would do you no good so you decide to move to investigating the surrounding room. 
 
+//ask the user what room theyd like to explore//
+//print out the locations w/ numbers//
+
+1.) KITCHEN
+  You explore the Kitchen. You notice a cupboard is out of place. 
+  //Would you like to investigate?//
+  \\if YES\\ 
+  You notice that there is a passage that can take you to one of the other rooms.
+  //Would you like to take it?//
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+  
+ 2.) LOUNGE
+   You explore the Lounge.
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+
+ 3.) LIBRARY
+  You explore the Library. You notice that there is a bookshelf slightly shifted.
+  //Would you like to investigate?//
+  \\if YES\\ 
+  You notice that there is a passage that can take you to one of the other rooms.
+  //Would you like to take it?//
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+
+4.) BALL ROOM
+   You explore the Ball Room.
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+  
+ 5.) BILIARD ROOM
+  You explore the Biliard Room. You notice that there is a lift in the carpet.
+  //Would you like to investigate?//
+  \\if YES\\ 
+  You notice that there is a passage that can take you to one of the other rooms.
+  //Would you like to take it?//
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+  
+ 6.) CONSERVATORY
+   You explore the COnservatory.
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+  
+ 7.) DINING ROOM
+  You explore the Dining Room. You notice that there is some type of indentation in the wood underneeth the table.
+  //Would you like to investigate?//
+  \\if YES\\ 
+  You notice that there is a passage that can take you to one of the other rooms.
+  //Would you like to take it?//
+  **IF THIS IS WHERE THE MURDER HAPPENED PUT ONE CLUE IN HERE**
+
+\struct weapons
+ int real weap
+ int fakeweap1
+ int fakeweap2
+\
+
+You are now in the room where the murder happened. You noice three weapons, all have some from of blood on them. 
+\\list three weapons\\
+//Which one would you like to investigate first?//
+\\ONE GUESS\\
+fake1 ->  The blood likes splattered on, someone is trying to make this more difficult for me. 
+fake2 -> This blood looks fresher than the other two. 
+real -> There seems to be some bloody finger prints on this one. 
+  **PUT ONE CLUE IN HERE ABOUT THE MURDERER**
+
+CHOOSE WHO YOU'D LIKE TO INVESTIGATE:
+\\print the text file of suspects\\
+//You can only choose three people to investigate.//
