@@ -8,13 +8,14 @@
 
 void openit()
 {
-    char str[300];
+    char str[2000000];
     int x;
+    x = 0;
     
     FILE *f1 = fopen("extrainfo.txt", "r");
-    for(x=0; x<36;x++)
+    for(x=0; x<32;x++)
     {
-        fgets(str,300,f1);
+        fgets(str,2000000,f1);
         printf("%s", str);
     }
    fclose(f1);
@@ -22,14 +23,14 @@ void openit()
 
 void story(int y, int z)
 {
-    char str[300];
+    char str[2000000];
     int x;
     x = y;
     
     FILE *f1 = fopen("Storyline.txt", "r");
     for(x=y; x<z;x++)
     {
-        fgets(str,300,f1);
+        fgets(str,2000000,f1);
         printf("%s", str);
     }
    fclose(f1);
@@ -72,15 +73,98 @@ typedef struct userGuess{
   int room;
 } userGuess;
 
+int explore(int room)
+{
+    int ans;
+    openit();
+    
+    switch(room){
+    case 1:
+        printf("\nYou explore the Kitchen. You notice a cupboard is out of place.");
+        printf("Would you like to investigate? (0 for yes, 1 for no): ");
+        scanf("%d", &ans);
+    
+        if (ans==0)
+        {
+            printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+            printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+            scanf("%d", &ans);
+            if (ans == 0)
+            explore(3);
+        }
+        break;
+        
+    case 2:
+    printf("\nYou explore the Lounge.");
+    break;
+    
+    case 3:
+        printf("\nYou explore the Library. You notice that there is a bookshelf slightly shifted.");
+        printf("Would you like to investigate? (0 for yes, 1 for no): ");
+        scanf("%d", &ans);
+    
+        if (ans==0)
+        {
+            printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+            printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+            scanf("%d", &ans);
+            if (ans == 0)
+            explore(1);
+        }
+        break;
+
+    case 4:
+    printf("\nYou explore the Ball Room.");
+    break;
+    
+    case 5:
+        printf("\nYou explore the Biliard Room. You notice that there is a lift in the carpet.");
+        printf("Would you like to investigate? (0 for yes, 1 for no): ");
+        scanf("%d", &ans);
+    
+        if (ans==0)
+        {
+            printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+            printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+            scanf("%d", &ans);
+            if (ans == 0)
+            explore(7);
+        }
+        break;
+
+    case 6:
+    printf("\nYou explore the Conservatory.");
+    break;
+    
+    case 7:
+        printf("\nYou explore the Dining Room. You notice that there is some type of indentation in the wood underneeth the table.");
+        printf("Would you like to investigate? (0 for yes, 1 for no): ");
+        scanf("%d", &ans);
+    
+        if (ans==0)
+        {
+            printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+            printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+            scanf("%d", &ans);
+            if (ans == 0)
+            explore(5);
+        }
+        break;
+        
+        default:
+        printf("\nERROR");
+        break;
+    }
+}
 
 int main()
 {
   userGuess Guess;
   int murderer, weapon, room;
-  int countermur, countwea, countroo, c, again;
+  int countermur, countwea, exploreroom, c, again;
   
-    openit();
-    story(0, 19);
+    openit(0,36);
+    story(0, 54);
     
   murderer = whoIsIt(7);
   weapon = whoIsIt(10);
@@ -88,6 +172,47 @@ int main()
   
  printf("%d, %d, %d", murderer, weapon, room);
  
+ printf("\nWhat room would you like to explore? (please enter a number): ");
+ scanf("%d", &exploreroom);
+ explore(exploreroom);
+ 
+ 
+ 
+ 
+  printf("\nWhere did it happen: (please enter an integrer)");
+     scanf("%d", &Guess.room);
+      c = userguess(Guess.room, room);
+
+     if (c==0)
+     { 
+     //call storyline to move storyline
+     }
+  else if(c==1)
+  {
+   printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+   scanf("%d", &again);
+    while (again ==1 )
+    {
+        printf("\n\nWhere did it happen: (please enter an integer)");
+        scanf("%d", &Guess.room);
+        c = userguess(Guess.room, room);
+        
+        if (c==0)
+    { 
+     //call storyline to move storyline
+     again = 0;
+    }
+      else
+      {
+          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+          scanf("%d", &again);
+      }
+    }
+  }
+ 
+ 
+ 
+ //////////////////////////////////////////////////////////////////////
  printf("\n\nWho is the murderer: (please enter an integer)");
  scanf("%d", &Guess.murderer);
  
@@ -121,36 +246,6 @@ int main()
 }
 
 
-     printf("\nWhere did it happen: (please enter an integrer)");
-     scanf("%d", &Guess.room);
-      c = userguess(Guess.room, room);
-
-     if (c==0)
- { 
-     //call storyline to move storyline
- }
-  else if(c==1)
-{
-   printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-   scanf("%d", &again);
-    while (again ==1 )
-    {
-        printf("\n\nWhere did it happen: (please enter an integer)");
-        scanf("%d", &Guess.room);
-        c = userguess(Guess.room, room);
-        
-        if (c==0)
- { 
-     //call storyline to move storyline
-     again = 0;
- }
-      else
-      {
-          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-          scanf("%d", &again);
-      }
-    }
-}
 
      printf("\nWhat was used to kill them: (please enter an integrer)");
      scanf("%d", &Guess.weapon);
@@ -171,10 +266,10 @@ int main()
         c = userguess(Guess.weapon, weapon);
         
         if (c==0)
- { 
-     //call storyline to move storyline
-     again = 0;
- }
+        { 
+        //call storyline to move storyline
+        again = 0;
+         }
       else
       {
           printf("\nWould you like to try again? (0 for yes, 1 for no): ");
@@ -185,5 +280,4 @@ int main()
   printf("\n\nTehe you did it.");
 }
   return 0;
-  
 }
