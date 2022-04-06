@@ -499,7 +499,7 @@ main()
       contexpl = 0;
       printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
       scanf("%d", & contexpl);
-      err = errorcheck(exploreroom, 2);
+      err = errorcheck(contexpl, 2);
     }
 
     //If the user wishes to continue exploring
@@ -651,7 +651,7 @@ main()
       err = errorcheck(choweap, 2);
       while (err == 1) {
         choweap = 0;
-        printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+        printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
         scanf("%d", & choweap);
         err = errorcheck(choweap, 2);
       }
@@ -692,7 +692,7 @@ main()
     err = errorcheck(Guess.weapon, 7);
     while (err == 1) {
       Guess.weapon = 0;
-      printf("\nWhere did it happen: (please enter an integrer)");
+      printf("\nWhat was used to kill them: (please enter an integrer): ");
       scanf("%d", & Guess.weapon);
       err = errorcheck(Guess.weapon, 7);
     }
