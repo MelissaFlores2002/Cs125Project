@@ -1,274 +1,239 @@
 #include<stdio.h>
+
 #include <stdlib.h>
+
 #include<time.h>
-//#include "userGuess.h"
+ //#include "userGuess.h"
 //#include "whoIsIt.h"
 
-int errorcheck(int ans, int x)
-{
-    if (ans>x)
-    {
-        printf("\n\nERROR, INPUT IS OUT OF BOUNDS.\n\n");
-        return 1;
-    }
-    else 
+int errorcheck(int ans, int x) {
+  if (ans > x) {
+    printf("\n\nERROR, INPUT IS OUT OF BOUNDS.\n\n");
+    return 1;
+  } else
     return 0;
 }
 
 void
-openit ()
-{
+openit() {
   char str[2000000];
   int x;
   x = 0;
 
-  FILE *f1 = fopen("extrainfo.txt", "r");
-  for (x = 0; x < 32; x++)
-    {
-      fgets(str, 2000000, f1);
-      printf("%s", str);
-    }
+  FILE * f1 = fopen("extrainfo.txt", "r");
+  for (x = 0; x < 32; x++) {
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
   fclose(f1);
 }
 
 void
-openroom ()
-{
+openroom() {
   char str[2000000];
   int x;
   x = 0;
 
-  FILE *f1 = fopen("rooms.txt", "r");
-  for (x = 0; x < 8; x++)
-    {
-      fgets(str, 2000000, f1);
-      printf("%s", str);
-    }
+  FILE * f1 = fopen("rooms.txt", "r");
+  for (x = 0; x < 8; x++) {
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
   fclose(f1);
 }
 
 void
-openweap ()
-{
+openweap() {
   char str[2000000];
   int x;
   x = 0;
 
-  FILE *f1 = fopen ("weapons.txt", "r");
-  for (x = 0; x < 8; x++)
-    {
-      fgets(str, 2000000, f1);
-      printf("%s", str);
-    }
+  FILE * f1 = fopen("weapons.txt", "r");
+  for (x = 0; x < 8; x++) {
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
   fclose(f1);
 }
 
 void
-opensus ()
-{
+opensus() {
   char str[2000000];
   int x;
   x = 0;
 
-  FILE *f1 = fopen("suspects.txt", "r");
-  for (x = 0; x < 8; x++)
-    {
-      fgets(str, 2000000, f1);
-      printf("%s", str);
-    }
+  FILE * f1 = fopen("suspects.txt", "r");
+  for (x = 0; x < 8; x++) {
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
   fclose(f1);
 }
 
-
-
 void
-kitchen ()
-{
+kitchen() {
   char str[2000000];
   int x;
   x = 0;
 
-  FILE *f1 = fopen ("Kitchen.txt", "r");
-  for (x = 0; x < 69; x++)
-    {
-      fgets (str, 2000000, f1);
-      printf ("%s", str);
-    }
-  fclose (f1);
+  FILE * f1 = fopen("Kitchen.txt", "r");
+  for (x = 0; x < 69; x++) {
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
+  fclose(f1);
 }
 
 void
-story (int y, int z)
-{
+story(int y, int z) {
   char str[2000000];
   int x;
   x = y;
 
-  FILE *f1 = fopen("Storyline.txt", "r");
-  for (x = y; x < z; x++)
-    {
-      fgets(str, 2000000, f1);
-      printf("%s", str);
-    }
+  FILE * f1 = fopen("Storyline.txt", "r");
+  for (x = y; x < z; x++) {
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
   fclose(f1);
 }
 
 int
-userguess (int guess, int real)
-{
-  if (guess == real)
-    {
-      FILE *ptr = fopen("records.txt", "a");
-      fprintf(ptr, "Correct: %d\n", guess);
-      fclose(ptr);
+userguess(int guess, int real) {
+  if (guess == real) {
+    FILE * ptr = fopen("records.txt", "a");
+    fprintf(ptr, "Correct: %d\n", guess);
+    fclose(ptr);
 
-      printf("Your guess is correct\n");
-      return 0;
-    }
-  else
-    {
-      FILE *ptr = fopen("records.txt", "a");
-      fprintf(ptr, "Incorrect: %d\n", guess);
-      fclose(ptr);
+    printf("Your guess is correct\n");
+    return 0;
+  } else {
+    FILE * ptr = fopen("records.txt", "a");
+    fprintf(ptr, "Incorrect: %d\n", guess);
+    fclose(ptr);
 
-      printf("Incorrect\n");
-      return 1;
-    }
+    printf("Incorrect\n");
+    return 1;
+  }
 }
 
-
 int
-whoIsIt (int num)
-{
+whoIsIt(int num) {
   int murderer;
-  srand (time (NULL));
-  murderer = rand () % num + 1;
+  srand(time(NULL));
+  murderer = rand() % num + 1;
   return murderer;
 }
 
-typedef struct userGuess
-{
+typedef struct userGuess {
   int murderer;
   int weapon;
   int room;
-} userGuess;
+}
+userGuess;
 
 int
-explore (int room, int roomreal)
-{
+explore(int room, int roomreal) {
   int ans;
-  switch (room)
-    {
-    case 1:
-      kitchen ();
-      printf("\nYou explore the Kitchen. You notice a cupboard is out of place.");
-      if (roomreal == room)
-	{
-	  printf("\nThere is blood splattered on the cupboards.");
-	}
-      printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
-      scanf("%d", &ans);
-
-      if (ans == 0)
-	{
-	  printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-	  printf("\nWould you like to take it? (0 for yes, 1 for no): ");
-	  scanf("%d", &ans);
-	  if (ans == 0)
-	    explore (3, roomreal);
-	}
-      break;
-
-    case 2:
-      printf("\nYou explore the Lounge.");
-      if (roomreal == room)
-	{
-	  printf("\nThere is dried blood on one of the couches.");
-	}
-      break;
-
-    case 3:
-      printf("\nYou explore the Library. You notice that there is a bookshelf slightly shifted.");
-      if (roomreal == room)
-	{
-	  printf("\nThere seems to be some type of blood on one of the books.");
-	}
-      printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
-      scanf("%d", &ans);
-
-      if (ans == 0)
-	{
-	  printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-	  printf("\nWould you like to take it? (0 for yes, 1 for no): ");
-	  scanf("%d", &ans);
-	  if (ans == 0)
-	    explore (1, roomreal);
-	}
-      break;
-
-    case 4:
-      printf("\nYou explore the Ball Room.");
-      if (roomreal == room)
-	{
-	  printf("\nThere is smeared blood on the flooring.");
-	}
-      break;
-
-    case 5:
-      printf("\nYou explore the Biliard Room. You notice that there is a lift in the carpet.");
-      if (roomreal == room)
-	{
-	  printf("\nOne of the pool cues seems to be broken.");
-	}
-      printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
-      scanf("%d", &ans);
-
-      if (ans == 0)
-	{
-	  printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-	  printf("\nWould you like to take it? (0 for yes, 1 for no): ");
-	  scanf("%d", &ans);
-	  if (ans == 0)
-	    explore (7, roomreal);
-	}
-      break;
-
-    case 6:
-      printf("\nYou explore the Conservatory.");
-      if (roomreal == room)
-	{
-	  printf("\nYou notice some smudged blood on one of the windows.");
-	}
-      break;
-
-    case 7:
-      printf("\nYou explore the Dining Room. You notice that there is some type of indentation in the wood underneeth the table.");
-      if (roomreal == room)
-	{
-	  printf("\nThere is blood under the table.");
-	}
-      printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
-      scanf("%d", &ans);
-
-      if (ans == 0)
-	{
-	  printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-	  printf("\nWould you like to take it? (0 for yes, 1 for no): ");
-	  scanf("%d", &ans);
-	  if (ans == 0)
-	    explore (5, roomreal);
-	}
-      break;
-
-    default:
-      printf("\nERROR");
-      break;
+  switch (room) {
+  case 1:
+    kitchen();
+    printf("\nYou explore the Kitchen. You notice a cupboard is out of place.");
+    if (roomreal == room) {
+      printf("\nThere is blood splattered on the cupboards.");
     }
+    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
+    scanf("%d", & ans);
+
+    if (ans == 0) {
+      printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      if (ans == 0)
+        explore(3, roomreal);
+    }
+    break;
+
+  case 2:
+    printf("\nYou explore the Lounge.");
+    if (roomreal == room) {
+      printf("\nThere is dried blood on one of the couches.");
+    }
+    break;
+
+  case 3:
+    printf("\nYou explore the Library. You notice that there is a bookshelf slightly shifted.");
+    if (roomreal == room) {
+      printf("\nThere seems to be some type of blood on one of the books.");
+    }
+    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
+    scanf("%d", & ans);
+
+    if (ans == 0) {
+      printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      if (ans == 0)
+        explore(1, roomreal);
+    }
+    break;
+
+  case 4:
+    printf("\nYou explore the Ball Room.");
+    if (roomreal == room) {
+      printf("\nThere is smeared blood on the flooring.");
+    }
+    break;
+
+  case 5:
+    printf("\nYou explore the Biliard Room. You notice that there is a lift in the carpet.");
+    if (roomreal == room) {
+      printf("\nOne of the pool cues seems to be broken.");
+    }
+    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
+    scanf("%d", & ans);
+
+    if (ans == 0) {
+      printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      if (ans == 0)
+        explore(7, roomreal);
+    }
+    break;
+
+  case 6:
+    printf("\nYou explore the Conservatory.");
+    if (roomreal == room) {
+      printf("\nYou notice some smudged blood on one of the windows.");
+    }
+    break;
+
+  case 7:
+    printf("\nYou explore the Dining Room. You notice that there is some type of indentation in the wood underneeth the table.");
+    if (roomreal == room) {
+      printf("\nThere is blood under the table.");
+    }
+    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
+    scanf("%d", & ans);
+
+    if (ans == 0) {
+      printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      if (ans == 0)
+        explore(5, roomreal);
+    }
+    break;
+
+  default:
+    printf("\nERROR");
+    break;
+  }
 }
 
 void
-testweap (int weap)
-{
+testweap(int weap) {
   if (weap == 1)
     printf("\nThe blood likes splattered on, someone is trying to make this more difficult for me.");
   else if (weap == 2)
@@ -280,283 +245,535 @@ testweap (int weap)
 }
 
 void
-investigate (int person)
-{
-  switch (person)
+investigate(int person, int realper) {
+    int per1, per2, per3, per4, per5, per6;
+    
+            srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+        
+  switch (person) {
+  case 1:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
     {
-    case 1:
-      printf ("\n");
-    case 2:
-      printf ("\n");
-    case 3:
-      printf ("\n");
-    case 4:
-      printf ("\n");
-    case 5:
-      printf ("\n");
-    case 6:
-      printf ("\n");
-    case 7:
-      printf ("\n");
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
     }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\nI was busy preparing dessert in the kitchen, %d came into the room around the time I was finished", realper);
+  case 2:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
+    {
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+    }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\nI saw Mr.Peters go into the ballroom with %d earlier that night, then %d and I talked in the Dining Room", per3, per5);
+  case 3:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
+    {
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+    }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\n Mr.Peters and I were in the ballroom dancing but then they left into the Conservatory");
+  case 4:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
+    {
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+    }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\nI saw %d go into the Conservatory, but I never saw them leave", realper);
+  case 5:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
+    {
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+    }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\n%d and I were talking in the Dining Room all night about the affair between Mr.Peters and %d, we cant believe that they could do this to %d!", per2, per3, realper);
+  case 6:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
+    {
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+    }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\n");
+  case 7:
+  if (person==realper){
+   while((per1 == realper) || (per2 == realper) ||(per3 == realper) ||(per4 == realper) ||(per5 == realper) ||(per6 == realper))
+    {
+        srand(time(NULL));
+        per1 = rand() % 7 + 1;
+        per2 = rand() % 7 + 1;
+        per3 = rand() % 7 + 1;
+        per4 = rand() % 7 + 1;
+        per5 = rand() % 7 + 1;
+        per6 = rand() % 7 + 1;
+    }
+    printf("\nI was in the kitchen with %d the entire time.", per1);
+  }
+  else
+  printf("\n");
+  }
 }
 
-
 int
-main ()
+main() 
 {
-  //Establish the variables, they are separated into catagories based on what potion of the code they belong to
-  userGuess Guess;
-  int murderer, weapon, room, err;
-  int countermur = 0, countwea = 0, countroo = 0, c, again;
-  int exploreroom, contexpl;
-  int weap1, weap2, weap3, userweap, whichone, choweap;
-  int invese, chomur;
+    //Establish the variables, they are separated into catagories based on what potion of the code they belong to
+    userGuess Guess;
+    int murderer, weapon, room, err;
+    int countermur = 0, countwea = 0, countroo = 0, c, again;
+    int exploreroom, contexpl;
+    int weap1, weap2, weap3, userweap, whichone, choweap;
+    int invese, chomur;
 
-  //opens the big list of options, and the story line
-  openit (0, 36);
-  story (0, 54);
+    //opens the big list of options, and the story line
+    openit(0, 36);
+    story(0, 54);
 
-  //establishing all of the actual varaibles for the murder
-  murderer = whoIsIt (7);
-  weapon = whoIsIt (10);
-  room = whoIsIt (7);
+    //establishing all of the actual varaibles for the murder
+    murderer = whoIsIt(7);
+    weapon = whoIsIt(10);
+    room = whoIsIt(7);
 
-  //Error checking, please delete before turning in
-  printf("%d, %d, %d", murderer, weapon, room);
+    //Error checking, please delete before turning in
+    printf("%d, %d, %d", murderer, weapon, room);
 
-  //The start of searching for the room
-  printf("\n");
-  openroom ();
-  printf("\n");
+    //The start of searching for the room
+    printf("\n");
+    openroom();
+    printf("\n");
 
-  //promting the user to find out what room they'd like to explore
-  printf("\nWhat room would you like to explore? (please enter a number): ");
-  scanf("%d", &exploreroom);
-  
-  //Error checking
-  err = errorcheck(exploreroom, 7);
-  while(err==1)
-  {
-       exploreroom = 0;
-       printf("\nWhat room would you like to explore? (please enter a number): ");
-       scanf("%d", &exploreroom);
-       err = errorcheck(exploreroom, 7); 
-  }
-  
-  //this is the function to go inside individual rooms
-  explore (exploreroom, room);
-  printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
-  scanf("%d", &contexpl);
-  
-  //Error checking
-  err = errorcheck(contexpl, 1);
-  while(err==1)
-  {
-       contexpl = 0;
-       printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
-       scanf("%d", &contexpl);
-       err = errorcheck(exploreroom, 7); 
-  }
+    //promting the user to find out what room they'd like to explore
+    printf("\nWhat room would you like to explore? (please enter a number): ");
+    scanf("%d", & exploreroom);
 
-  //If the user wishes to continue exploring
-  while (contexpl == 0)
-    {
+    //Error checking
+    err = errorcheck(exploreroom, 7);
+    while (err == 1) {
+      exploreroom = 0;
       printf("\nWhat room would you like to explore? (please enter a number): ");
-      scanf("%d", &exploreroom);
-        //Error checking
-        err = errorcheck(exploreroom, 7);
-        while(err==1)
-        {
-        exploreroom = 0;
-         printf("\nWhat room would you like to explore? (please enter a number): ");
-        scanf("%d", &exploreroom);
-        err = errorcheck(exploreroom, 7); 
-        }
-  
-      
-      explore (exploreroom, room);
+      scanf("%d", & exploreroom);
+      err = errorcheck(exploreroom, 7);
+    }
+
+    //this is the function to go inside individual rooms
+    explore(exploreroom, room);
+    printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+    scanf("%d", &contexpl);
+
+    //Error checking
+    err = errorcheck(contexpl, 2);
+    while (err == 1) {
+      contexpl = 0;
       printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
-      scanf("%d", &contexpl);
-      
-        //Error checking
-        err = errorcheck(contexpl, 1);
-        while(err==1)
-       {
+      scanf("%d", & contexpl);
+      err = errorcheck(exploreroom, 2);
+    }
+
+    //If the user wishes to continue exploring
+    while (contexpl == 0) {
+      printf("\nWhat room would you like to explore? (please enter a number): ");
+      scanf("%d", & exploreroom);
+      //Error checking
+      err = errorcheck(exploreroom, 7);
+      while (err == 1) {
+        exploreroom = 0;
+        printf("\nWhat room would you like to explore? (please enter a number): ");
+        scanf("%d", & exploreroom);
+        err = errorcheck(exploreroom, 7);
+      }
+
+      explore(exploreroom, room);
+      printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+      scanf("%d", & contexpl);
+
+      //Error checking
+      err = errorcheck(contexpl, 2);
+      while (err == 1) {
         contexpl = 0;
         printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
-        scanf("%d", &contexpl);
-        err = errorcheck(exploreroom, 7); 
+        scanf("%d", & contexpl);
+        err = errorcheck(contexpl, 2);
+      }
+
+    }
+
+    //Opens the list of rooms
+    printf("\n");
+    openroom();
+    printf("\n");
+
+    //This is where the user will guess where the murder happened
+    printf("\nWhere did it happen: (please enter an integrer)");
+    scanf("%d", & Guess.room);
+
+    //Error checking
+    err = errorcheck(Guess.room, 7);
+    while (err == 1) {
+      Guess.room = 0;
+      printf("\nWhere did it happen: (please enter an integrer)");
+      scanf("%d", & Guess.room);
+      err = errorcheck(Guess.room, 7);
+    }
+
+    c = userguess(Guess.room, room);
+
+    //c is the variable that returns whether the guess was correct or not
+    //If the guess is incorrect this code reprompts them
+    if (c == 0) {} else if (c == 1) {
+      printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+      scanf("%d", & again);
+
+      //Error check
+      err = errorcheck(again, 2);
+      while (err == 1) {
+        again = 0;
+        printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+        scanf("%d", & again);
+        err = errorcheck(again, 2);
+      }
+
+      //places the user into a loop until they want to exit or guess correctly
+      while (again == 0) {
+        printf("\n\nWhere did it happen: (please enter an integer)");
+        scanf("%d", & Guess.room);
+
+        //Error checking
+        err = errorcheck(Guess.room, 7);
+        while (err == 1) {
+          Guess.room = 0;
+          printf("\nWhere did it happen: (please enter an integrer)");
+          scanf("%d", & Guess.room);
+          err = errorcheck(Guess.room, 7);
         }
 
+        c = userguess(Guess.room, room);
+
+        if (c == 0) {
+          again = 0;
+        } else {
+          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+          scanf("%d", & again);
+
+          //Error check
+          err = errorcheck(again, 2);
+          while (err == 1) {
+            again = 0;
+            printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+            scanf("%d", & again);
+            err = errorcheck(again, 2);
+          }
+        }
+      }
     }
 
-  //Opens the list of rooms
-  printf("\n");
-  openroom ();
-  printf("\n");
+    //opening the list of weapons
+    printf("\n");
+    openweap();
+    printf("\n");
 
-  //This is where the user will guess where the murder happened
-  printf("\nWhere did it happen: (please enter an integrer)");
-  scanf("%d", &Guess.room);
-  c = userguess (Guess.room, room);
+    //randomizing where the real weapon is 
+    srand(time(NULL));
+    whichone = rand() % 3 + 1;
 
-  //c is the variable that returns whether the guess was correct or not
-  //If the guess is incorrect this code reprompts them
-  if (c == 0)
-    {
-    }
-  else if (c == 1)
-    {
-      printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-      scanf("%d", &again);
-      
-      //places the user into a loop until they want to exit or guess correctly
-      while (again == 0)
-	{
-	  printf("\n\nWhere did it happen: (please enter an integer)");
-	  scanf("%d", &Guess.room);
-	  c = userguess (Guess.room, room);
-
-	  if (c == 0)
-	    {
-	        again = 0;
-	    }
-	  else
-	    {
-	      printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-	      scanf ("%d", &again);
-	    }
-	}
-    }
-
-  //opening the list of weapons
-  printf("\n");
-  openweap ();
-  printf("\n");
-  
-  //randomizing where the real weapon is 
-  srand(time (NULL));
-  whichone = rand () % 3 + 1;
-
-  //randomizing the weapon choices for the user
-  switch (whichone)
-    {
+    //randomizing the weapon choices for the user
+    switch (whichone) {
     case 1:
       weap1 = weapon;
-      weap2 = rand () % 7 + 1;
-      weap3 = rand () % 7 + 1;
-       break;
+      weap2 = rand() % 7 + 1;
+      weap3 = rand() % 7 + 1;
+      break;
     case 2:
       weap2 = weapon;
-      weap1 = rand () % 7 + 1;
-      weap3 = rand () % 7 + 1;
-       break;
+      weap1 = rand() % 7 + 1;
+      weap3 = rand() % 7 + 1;
+      break;
     case 3:
       weap3 = weapon;
-      weap2 = rand () % 7 + 1;
-      weap1 = rand () % 7 + 1;
+      weap2 = rand() % 7 + 1;
+      weap1 = rand() % 7 + 1;
       break;
     }
 
-  //The weapons randomized above are the choices for the weapon
-  printf("\nYou are now in the room where the murder happened. You notice three weapons, all have some from of blood on them.");
-  printf("\n 1. %d, 2. %d, 3. %d", weap1, weap2, weap3);
-  
-  //prompting the user to invesitgate the weapons
-  printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
-  scanf("%d", &userweap);
-  testweap (userweap);
-  printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
-  scanf("%d", &choweap);
+    //The weapons randomized above are the choices for the weapon
+    printf("\nYou are now in the room where the murder happened. You notice three weapons, all have some from of blood on them.");
+    printf("\n 1. %d, 2. %d, 3. %d", weap1, weap2, weap3);
 
-  //If the user wants to continue to investgate it send them here
-  while (choweap == 0)
-    {
-      printf("\nWhich one would you like to invesitgate? (type 1 for %d, 2 for %d, 3 for %d): ",
-	 weap1, weap2, weap3);
-      scanf("%d", &userweap);
-      testweap (userweap);
+    //prompting the user to invesitgate the weapons
+    printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
+    scanf("%d", & userweap);
+
+    //Error checking
+    err = errorcheck(userweap, 4);
+    while (err == 1) {
+      userweap = 0;
+      printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
+      scanf("%d", & userweap);
+      err = errorcheck(userweap, 4);
+    }
+
+    testweap(userweap);
+    printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+    scanf("%d", & choweap);
+    //Error check
+      err = errorcheck(choweap, 2);
+      while (err == 1) {
+        choweap = 0;
+        printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+        scanf("%d", & choweap);
+        err = errorcheck(choweap, 2);
+      }
+
+    //If the user wants to continue to investgate it send them here
+    while (choweap == 0) {
+      printf("\nWhich one would you like to invesitgate? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
+      scanf("%d", & userweap);
+
+      //Error checking
+      err = errorcheck(userweap, 3);
+      while (err == 1) {
+        userweap = 0;
+        printf("\nWhich one would you like to invesitgate? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
+        scanf("%d", & userweap);
+        err = errorcheck(userweap, 3);
+      }
+
+      testweap(userweap);
       printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
-      scanf("%d", &choweap);
+      scanf("%d", & choweap);
+
+      //Error check
+      err = errorcheck(choweap, 2);
+      while (err == 1) {
+        choweap = 0;
+        printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+        scanf("%d", & choweap);
+        err = errorcheck(choweap, 2);
+      }
     }
 
-  //This is where the user will guess what was used in the murder
-  printf("\nWhat was used to kill them: (please enter an integrer): ");
-  scanf("%d", &Guess.weapon);
-  c = userguess (Guess.weapon, weapon);
-  
-  //c is the variable that returns whether the guess was correct or not
-  //If the guess is incorrect this code repromts one more time
-  if (c == 0)
-    {
+    //This is where the user will guess what was used in the murder
+    printf("\nWhat was used to kill them: (please enter an integrer): ");
+    scanf("%d", & Guess.weapon);
+
+    //Error checking
+    err = errorcheck(Guess.weapon, 7);
+    while (err == 1) {
+      Guess.weapon = 0;
+      printf("\nWhere did it happen: (please enter an integrer)");
+      scanf("%d", & Guess.weapon);
+      err = errorcheck(Guess.weapon, 7);
     }
-  else if (c == 1)
-    {
+
+    c = userguess(Guess.weapon, weapon);
+
+    //c is the variable that returns whether the guess was correct or not
+    //If the guess is incorrect this code repromts one more time
+    if (c == 0) {} else if (c == 1) {
       printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-      scanf("%d", &again);
-      if (again == 0)
-	{
-	  printf("\n\nWhat was used to kill them: (please enter an integrer): ");
-	  scanf("%d", &Guess.weapon);
-	  c = userguess (Guess.weapon, weapon);
-	}
-    }
-      //Opens the list of suspects
-      printf("\n");
-      opensus ();
-      printf("\n");
+      scanf("%d", & again);
+      //Error check
+      err = errorcheck(again, 2);
+      while (err == 1) {
+        again = 0;
+        printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+        scanf("%d", & again);
+        err = errorcheck(again, 2);
+      }
 
-      //Prompting the user to invesitage the suspects
+      if (again == 0) {
+        printf("\n\nWhat was used to kill them: (please enter an integrer): ");
+        scanf("%d", & Guess.weapon);
+
+        //Error checking
+        err = errorcheck(Guess.weapon, 7);
+        while (err == 1) {
+          Guess.weapon = 0;
+          printf("\nWhere did it happen: (please enter an integrer)");
+          scanf("%d", & Guess.weapon);
+          err = errorcheck(Guess.weapon, 7);
+        }
+        c = userguess(Guess.weapon, weapon);
+      }
+    }
+    //Opens the list of suspects
+    printf("\n");
+    opensus();
+    printf("\n");
+
+    //Prompting the user to invesitage the suspects
+    printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
+    scanf("%d", & invese);
+    //Error checking
+    err = errorcheck(invese, 2);
+    while (err == 1) {
+      invese = 0;
       printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
-      scanf("%d", &invese);
-      investigate (invese);
+      scanf("%d", & invese);
+      err = errorcheck(invese, 2);
+
+      investigate(invese, murderer);
 
       printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
-      scanf("%d", &chomur);
+      scanf("%d", & chomur);
 
-  //If the user wants to continue to investgate it send them here
-  while (chomur == 0)
-    {
-      printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
-      scanf("%d", &invese);
-      investigate (invese);
-      printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
-      scanf("%d", &chomur);
+      //Error checking
+      err = errorcheck(chomur, 2);
+      while (err == 1) {
+        chomur = 0;
+        printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+        scanf("%d", & chomur);
+        err = errorcheck(chomur, 2);
+
+        //If the user wants to continue to investgate it send them here
+        while (chomur == 0) {
+          printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
+          scanf("%d", & invese);
+
+          //Error checking
+          err = errorcheck(invese, 7);
+          while (err == 1) {
+            invese = 0;
+            printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
+            scanf("%d", & invese);
+            err = errorcheck(invese, 7);
+          }
+
+          investigate(invese, murderer);
+          printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+          scanf("%d", & chomur);
+
+          //Error checking
+          err = errorcheck(chomur, 2);
+          while (err == 1) {
+            chomur = 0;
+            printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+            scanf("%d", & chomur);
+            err = errorcheck(chomur, 2);
+          }
+
+          //Guess who is the murderer
+          printf("\n\nWho is the murderer: (please enter an integer)");
+          scanf("%d", & Guess.murderer);
+
+          //Error checking
+          err = errorcheck(Guess.murderer, 7);
+          while (err == 1) {
+            Guess.murderer = 0;
+            printf("\n\nWho is the murderer: (please enter an integer)");
+            scanf("%d", & Guess.murderer);
+            err = errorcheck(Guess.murderer, 7);
+          }
+
+          c = userguess(Guess.murderer, murderer);
+
+          //c is the variable that returns whether the guess was correct or not
+          //If the guess is incorrect this code reprompts them
+          if (c == 0) {} else if (c == 1) {
+            printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+            scanf("%d", & again);
+
+            //Error check
+            err = errorcheck(again, 2);
+            while (err == 1) {
+              again = 0;
+              printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+              scanf("%d", & again);
+              err = errorcheck(again, 2);
+            }
+
+            while (again == 0) {
+              printf("\n\nWho is the murderer: (please enter an integer)");
+              scanf("%d", & Guess.murderer);
+
+              //Error checking
+              err = errorcheck(Guess.murderer, 7);
+              while (err == 1) {
+                Guess.murderer = 0;
+                printf("\n\nWho is the murderer: (please enter an integer)");
+                scanf("%d", & Guess.murderer);
+                err = errorcheck(Guess.murderer, 7);
+              }
+
+              c = userguess(Guess.murderer, murderer);
+
+              if (c == 0) {
+                again = 0;
+              } else {
+                printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+                scanf("%d", & again);
+                //Error check
+                err = errorcheck(again, 2);
+                while (err == 1) {
+                  again = 0;
+                  printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+                  scanf("%d", & again);
+                  err = errorcheck(again, 2);
+                }
+              }
+            }
+          }
+        }
+        
+      }
     }
-
-      //Guess who is the murderer
-      printf("\n\nWho is the murderer: (please enter an integer)");
-      scanf("%d", &Guess.murderer);
-      c = userguess (Guess.murderer, murderer);
-      
-
-      //c is the variable that returns whether the guess was correct or not
-      //If the guess is incorrect this code reprompts them
-      if (c == 0)
-	{
-	}
-      else if (c == 1)
-	{
-	  printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-	  scanf("%d", &again);
-	  while (again == 0)
-	    {
-	      printf("\n\nWho is the murderer: (please enter an integer)");
-	      scanf("%d", &Guess.murderer);
-	      c = userguess (Guess.murderer, murderer);
-
-	      if (c == 0)
-		{
-		  again = 0;
-		}
-	      else
-		{
-		  printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-		  scanf("%d", &again);
-		}
-	    }
-	}
-      printf("\n\nTehe you did it.");
-  return 0;
-}
+          printf("\n\nTehe you did it.");
+          return 0;
+          }
