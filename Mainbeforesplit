@@ -135,6 +135,7 @@ userGuess;
 int
 explore(int room, int roomreal) {
   int ans;
+  int err;
   switch (room) {
   case 1:
     kitchen();
@@ -144,12 +145,28 @@ explore(int room, int roomreal) {
     }
     printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
     scanf("%d", & ans);
+              //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
 
     if (ans == 0) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
       printf("\nWould you like to take it? (0 for yes, 1 for no): ");
       scanf("%d", & ans);
       if (ans == 0)
+                //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
         explore(3, roomreal);
     }
     break;
@@ -168,11 +185,27 @@ explore(int room, int roomreal) {
     }
     printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
     scanf("%d", & ans);
+              //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
 
     if (ans == 0) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
       printf("\nWould you like to take it? (0 for yes, 1 for no): ");
       scanf("%d", & ans);
+                //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
       if (ans == 0)
         explore(1, roomreal);
     }
@@ -192,12 +225,28 @@ explore(int room, int roomreal) {
     }
     printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
     scanf("%d", & ans);
+              //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
 
     if (ans == 0) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
       printf("\nWould you like to take it? (0 for yes, 1 for no): ");
       scanf("%d", & ans);
       if (ans == 0)
+                //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
         explore(7, roomreal);
     }
     break;
@@ -216,11 +265,37 @@ explore(int room, int roomreal) {
     }
     printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
     scanf("%d", & ans);
+              //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
 
     if (ans == 0) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
       printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+                //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
       scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
+      scanf("%d", & ans);
+      
+          //Error checking
+    err = errorcheck(ans, 2);
+    while (err == 1) {
+      ans = 0;
+      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      scanf("%d", & ans);
+      err = errorcheck(ans, 2);
+    }
+    
       if (ans == 0)
         explore(5, roomreal);
     }
@@ -402,7 +477,7 @@ main()
 
     //promting the user to find out what room they'd like to explore
     printf("\nWhat room would you like to explore? (please enter a number): ");
-    scanf("%d", & exploreroom);
+    scanf("%d", &exploreroom);
 
     //Error checking
     err = errorcheck(exploreroom, 7);
@@ -668,6 +743,7 @@ main()
       printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
       scanf("%d", & invese);
       err = errorcheck(invese, 2);
+    }
 
       investigate(invese, murderer);
 
@@ -681,7 +757,7 @@ main()
         printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
         scanf("%d", & chomur);
         err = errorcheck(chomur, 2);
-
+      }
         //If the user wants to continue to investgate it send them here
         while (chomur == 0) {
           printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
@@ -771,9 +847,6 @@ main()
             }
           }
         }
-        
-      }
-    }
           printf("\n\nTehe you did it.");
           return 0;
           }
