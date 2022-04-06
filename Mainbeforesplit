@@ -333,26 +333,62 @@ main ()
   //promting the user to find out what room they'd like to explore
   printf("\nWhat room would you like to explore? (please enter a number): ");
   scanf("%d", &exploreroom);
+  
+  //Error checking
   err = errorcheck(exploreroom, 7);
   while(err==1)
   {
+       exploreroom = 0;
        printf("\nWhat room would you like to explore? (please enter a number): ");
        scanf("%d", &exploreroom);
        err = errorcheck(exploreroom, 7); 
   }
+  
   //this is the function to go inside individual rooms
   explore (exploreroom, room);
   printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
   scanf("%d", &contexpl);
+  
+  //Error checking
+  err = errorcheck(contexpl, 1);
+  while(err==1)
+  {
+       contexpl = 0;
+       printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+       scanf("%d", &contexpl);
+       err = errorcheck(exploreroom, 7); 
+  }
 
   //If the user wishes to continue exploring
   while (contexpl == 0)
     {
       printf("\nWhat room would you like to explore? (please enter a number): ");
       scanf("%d", &exploreroom);
+        //Error checking
+        err = errorcheck(exploreroom, 7);
+        while(err==1)
+        {
+        exploreroom = 0;
+         printf("\nWhat room would you like to explore? (please enter a number): ");
+        scanf("%d", &exploreroom);
+        err = errorcheck(exploreroom, 7); 
+        }
+  
+      
       explore (exploreroom, room);
       printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
       scanf("%d", &contexpl);
+      
+        //Error checking
+        err = errorcheck(contexpl, 1);
+        while(err==1)
+       {
+        contexpl = 0;
+        printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+        scanf("%d", &contexpl);
+        err = errorcheck(exploreroom, 7); 
+        }
+
     }
 
   //Opens the list of rooms
