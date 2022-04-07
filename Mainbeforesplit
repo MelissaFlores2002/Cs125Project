@@ -737,12 +737,12 @@ main()
     printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
     scanf("%d", & invese);
     //Error checking
-    err = errorcheck(invese, 2);
+    err = errorcheck(invese, 7);
     while (err == 1) {
       invese = 0;
       printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
       scanf("%d", & invese);
-      err = errorcheck(invese, 2);
+      err = errorcheck(invese, 7);
     }
 
       investigate(invese, murderer);
