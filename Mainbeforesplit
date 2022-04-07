@@ -84,8 +84,8 @@ kitchen() {
   fclose(f1);
 }
 
-void
-story(int y, int z) {
+//Printing the begining of the story
+void story(int y, int z) {
   char str[2000000];
   int x;
   x = y;
@@ -98,8 +98,8 @@ story(int y, int z) {
   fclose(f1);
 }
 
-int
-userguess(int guess, int real) {
+//Ammending the text file, to show the correct and incorrect guesses
+int userguess(int guess, int real) {
   if (guess == real) {
     FILE * ptr = fopen("records.txt", "a");
     fprintf(ptr, "Correct: %d\n", guess);
@@ -132,20 +132,21 @@ typedef struct userGuess {
 }
 userGuess;
 
-int
-explore(int room, int roomreal) {
+int explore(int room, int roomreal) {
   int ans;
   int err;
   switch (room) {
   case 1:
-    kitchen();
+    //Telling the user what is in the room
     printf("\nYou explore the Kitchen. You notice a cupboard is out of place.");
+    //Clue to whether this room is the real room
     if (roomreal == room) {
       printf("\nThere is blood splattered on the cupboards.");
     }
     printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
     scanf("%d", & ans);
-              //Error checking
+    
+    //Error checking
     err = errorcheck(ans, 2);
     while (err == 1) {
       ans = 0;
@@ -153,13 +154,15 @@ explore(int room, int roomreal) {
       scanf("%d", & ans);
       err = errorcheck(ans, 2);
     }
-
+    
+    //Secret Passage
     if (ans == 0) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
       printf("\nWould you like to take it? (0 for yes, 1 for no): ");
       scanf("%d", & ans);
       if (ans == 0)
-                //Error checking
+    
+    //Error checking
     err = errorcheck(ans, 2);
     while (err == 1) {
       ans = 0;
@@ -447,8 +450,7 @@ investigate(int person, int realper) {
   }
 }
 
-int
-main() 
+int main() 
 {
     //Establish the variables, they are separated into catagories based on what potion of the code they belong to
     userGuess Guess;
