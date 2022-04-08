@@ -39,6 +39,20 @@ void openRoom() {
   }
   fclose(f1);
 }
+//opens a .txt file for reading which contains the rules for the fight sequence
+void openFightRulesFile() {
+    //creating a string variable which is capable of housing an incredibly large number of characters
+  char str[2000000];
+  int x;
+
+  FILE* f1 = fopen("fightRules.txt", "r");
+  for (x = 0; x < 30; x++) {
+    //prints 30 lines from the txt file
+    fgets(str, 2000000, f1);
+    printf("%s", str);
+  }
+  fclose(f1);
+}
 
 //opens a .txt file for reading which contains the list of weapons
 void openWeapons() {
@@ -141,38 +155,27 @@ Input errorCheck (int userInput, int range, char errorStatement[100]){
         char line[100];
 
         printf("userInput = %d", userInput);
-        for (x=0;x<strlen(errorStatement);x++){
-            if (errorStatement[x] == '0'){
-                if ((userInput > range) || (userInput < 0)){
-                    printf("\n\n Error, input is out of bounds. \n\n");
-                    errorCheck.errorCheck=1;
-                    while (errorCheck.errorCheck ==1){
-                        printf("%s", errorStatement);
-                        fgets(line,100,stdin);
-                        errorCheck.input=atoi(line);
-                        errorCheck=errorCheck(errorCheck.input, range, errorStatement);
-                    }
-                }
+        
+        if ((userInput > range) || (userInput < 1)){
+            printf("\n\n Error, input is out of bounds. \n\n");
+            errorCheck.errorCheck=1;
+            while (errorCheck.errorCheck ==1){
+                printf("%s", errorStatement);
+                fgets(line,100,stdin);
+                errorCheck.input=atoi(line);
+                errorCheck=errorCheck(errorCheck.input, range, errorStatement);
             }
-            else if ((userInput > range) || (userInput < 1)){
-                printf("\n\n Error, input is out of bounds. \n\n");
-                errorCheck.errorCheck=1;
-                while (errorCheck.errorCheck ==1){
-                        printf("%s", errorStatement);
-                        fgets(line,100,stdin);
-                        errorCheck.input=atoi(line);
-                        errorCheck=errorCheck(errorCheck.input, range, errorStatement);
-                }
-            }
-            else
-                errorCheck.errorCheck=0;
+        }
+        else{
+            errorCheck.errorCheck=0;
+            errorCheck.userInput=userInput;
         }
         return errorCheck;
 }
 
-
 int explore(int room, int roomreal) {
   Input exploreCheck;
+  char line[100];
   switch (room) {
   case 1:
     //Telling the user what is in the room
@@ -181,24 +184,21 @@ int explore(int room, int roomreal) {
     if (roomreal == room) {
       printf("\nThere is blood splattered on the cupboards.");
     }
-    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
-    scanf("%d", &exploreCheck.input);
+    printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
+    scanf("%d", & exploreCheck.input);
     
     //Error checking
-    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
-    
-    
-    //Secret Passage
-    if (exploreCheck.input == 0) {
-      printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
-      scanf("%d", & exploreCheck.input);
-      if (ans == 0)
-    
-    //Error checking
-    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
+    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to investigate? (1 for yes, 2 for no): ");
 
-        explore(3, roomreal);
+    //Secret Passage
+    if (exploreCheck.input == 1) {
+      printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
+      printf("\nWould you like to take it? (1 for yes, 2 for no): ");
+      scanf("%d", & exploreCheck.input);
+      //error checking
+      exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (1 for yes, 2 for no): ");
+      if (exploreCheck.input == 1)
+          explore(3, roomreal);
     }
     break;
 
@@ -214,18 +214,18 @@ int explore(int room, int roomreal) {
     if (roomreal == room) {
       printf("\nThere seems to be some type of blood on one of the books.");
     }
-    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
-    scanf("%d", & exploreCheck.input);
-              //Error checking
-    exploreCheck= errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
+    printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
+    scanf("%d", &exploreCheck.input);
+    //Error checking
+    exploreCheck= errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (1 for yes, 2 for no): ");
 
-    if (exploreCheck.input == 0) {
+    if (exploreCheck.input == 1) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
-      scanf("%d", & exploreCheck.input);
-                //Error checking
-    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
-      if (ans == 0)
+      printf("\nWould you like to take it? (1 for yes, 2 for no): ");
+      scanf("%d", &exploreCheck.input);
+      //Error checking
+      exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (1 for yes, 2 for no): ");
+      if (exploreCheck.input == 1)
         explore(1, roomreal);
     }
     break;
@@ -242,19 +242,17 @@ int explore(int room, int roomreal) {
     if (roomreal == room) {
       printf("\nOne of the pool cues seems to be broken.");
     }
-    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
+    printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
     scanf("%d", &exploreCheck.input);
     //Error checking
-    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
+    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (1 for yes, 2 for no): ");
 
-    if (exploreCheck.input == 0) {
+    if (exploreCheck.input == 1) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-      printf("\nWould you like to take it? (0 for yes, 1 for no): ");
+      printf("\nWould you like to take it? (1 for yes, 2 for no): ");
       scanf("%d", &exploreCheck.input);
-      if (exploreCheck.input == 0)
-    //Error checking
-    exploreCheck = errorCheck(ans, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
-
+      exploreCheck = errorCheck(ans, 2, "\nWould you like to take it? (1 for yes, 2 for no): ");
+      if (exploreCheck.input == 1)
         explore(7, roomreal);
     }
     break;
@@ -271,21 +269,20 @@ int explore(int room, int roomreal) {
     if (roomreal == room) {
       printf("\nThere is blood under the table.");
     }
-    printf("\nWould you like to investigate? (0 for yes, 1 for no): ");
+    printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
     scanf("%d", &exploreCheck.input);
     //Error checking
-    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ");
+    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (1 for yes, 2 for no): ");
     
 
-    if (exploreCheck.input == 0) {
+    if (exploreCheck.input == 1) {
       printf("\nYou notice that there is a passage that can take you to one of the other rooms.");
-      printf("\nWould you like to take it? (0 for yes, 1 for no): ");    
+      printf("\nWould you like to take it? (1 for yes, 2 for no): ");    
       scanf("%d", &exploreCheck.input);
       
           //Error checking
-    exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (0 for yes, 1 for no): ")
-    
-      if (exploreCheck.input == 0)
+      exploreCheck = errorCheck(exploreCheck.input, 2, "\nWould you like to take it? (1 for yes, 2 for no): ")
+      if (exploreCheck.input == 1)
         explore(5, roomreal);
     }
     break;
@@ -362,7 +359,6 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
 int criticalHitFunction(int target){
 //rolls randomly between 1-10 to find critical hits, varies based on position of attack, the higher the attack the higher the critical strike chance
   int roll, critical;
-  srand(time( NULL() );
   roll=rand()%11;
   if ((target==3) && (roll <= 6))
         critical=1;
@@ -374,8 +370,9 @@ int criticalHitFunction(int target){
         critical=0;
   return critical;
 }
-int damageFunction(int weapon, int critical){
-	if (weapon ==1)
+float damageFunction(int weapon, int critical){
+	float weaponDamage;
+    if (weapon ==1)
 		weaponDamage=3;
 	if else ((weapon ==2) || (weapon ==7))
 		weaponDamage=4;
@@ -387,58 +384,219 @@ int damageFunction(int weapon, int critical){
         weaponDamage=weaponDamage*2;
 	return weaponDamage;
 }
-//errorCheck function that should work with any situation and thoroughly checks for errors
-int errorCheck (int userInput, int range, char errorStatement[100]){
-        int errorCheck;
-        char line[100];
-
-        printf("userInput = %d", userInput);
-
-        if ((userInput > range) || (userInput < 1)){
-                printf("\n\n Error, input is out of bounds. \n\n");
-                errorCheck=1;
-                while (errorCheck ==1){
-                        printf("%s", errorStatement);
-                        fgets(line,100,stdin);
-                        userInput=atoi(line);
-                        errorCheck=errorCheck(userInput, range, errorStatement);
-                }
-        }
-        else
-                errorCheck=0;
-        return errorCheck;
-}
 
 typedef struct combatInputs{
 		int target;
 		int success;
-        int dammage;
 	} Sequence;
+
+
+
+int AItargetFunction(){
+//rolls randomly to determine position of attack, it is more likely to attack higher positions due to the increased critical strike chance
+  int roll, target;
+  roll=rand()%13;
+  if (roll <= 2)
+        target=1;
+  if else (roll <= 6)
+        target=2;
+  if else (roll <=12))
+        target=3;
+  return target;
+}
+
+Sequence AICombatFunction(int playerTurn){
+    Sequence computerAttack, userAttack, computerBlock, userBlock;
+    if (playerTurn == 1){
+        printf("The Murderer is calculating their attack... \n");
+	    computerAttack.target=AItargetFunction();
+
+	    printf("Player One, press 1, 2, or 3 to block their attack: ");
+	    scanf("%d", userBlock.target);
+        
+        errorCheck=errorCheck(userBlock.target, 3, "Please try again, press 1, 2, or 3 to block Player %d's attack: ");
+        userBlock.target=errorCheck.input;
+    
+	    if (computerAttack.target == userBlock.target)
+		    computerAttack.success = 0;
+	    else
+		    computerAttack.success = 1;
+	    return computerAttack;
+    }
+    if else (playerTurn == 2){
+        printf("Player One you are attacking now, press 1, 2, or 3 to attack: ");
+	    scanf("%d", userAttack.target);
+        
+        errorCheck=errorCheck(userAttack.target, 3, "Please try again, press 1, 2, or 3 to attack: ");
+        userAttack.target=errorCheck.input;
+
+        printf("The Murderer is calculating where to block... \n")
+        computerBlock.target=AItargetFunction();
+        
+        if (userAttack.target == computerBlock.target)
+		    userAttack.success = 0;
+	    else
+		    userAttack.success = 1;
+	    return userAttack;
+    }
 
 Sequence combatFunction(int attackingPlayerNumber, blockingPlayerNumber){
 
 	Sequence attack, block;
-  Input errorCheck;
+    Input errorCheck;
 
 	printf("Player %d you are attacking now, press 1, 2, or 3 to attack: ", attackingPlayerNumber);
-	inputCheck=scanf("%d", attack.target);
-    errorCheck(attack.target, 3, "Please try again, press 1, 2, or 3 to attack: ");
-    attack.target=errorCheck.input;
-	
+	scanf("%d", attack.target);
+    if ((attack.target != 1) && (attack.target !=2) && (attack.target!=3)){
+        errorCheck=errorCheck(attack.target, 3, "Please try again, press 1, 2, or 3 to attack: ");
+        attack.target=errorCheck.input;
+    }
 
 	printf("Player %d, press 1, 2, or 3 to block their attack: ", blockingPlayerNumber);
-	inputCheck=scanf("%d", block.target);
-	errorCheck(block.target, 3, "Please try again, press 1, 2, or 3 to block Player %d's attack: ");
-  block.target=errorCheck.input;
-    
-	if (attackerChoice == blockerChoice)
-		attack.success = 1;
-	else
+	scanf("%d", block.target);
+    if ((block.target != 1) && (block.target !=2) && (block.target!=3)){
+        errorCheck=errorCheck(block.target, 3, "Please try again, press 1, 2, or 3 to block Player %d's attack: ");
+        block.target=errorCheck.input;
+    }
+	if (attack.target == block.target)
 		attack.success = 0;
+	else
+		attack.success = 1;
 	return attack;
+}        
+        
+
+//singleplayer fight sequence using "AI"
+void singlePlayerFightSequence(int weaponOne, weaponTwo){
+        //beginning the fight
+        printf("\n\n FIGHT \n\n");
+
+        int playerNumber, critical, weaponNumber[2]
+        float weaponDamage, healthPlayers[1,2]=10,10;
+
+        weaponNumber[0]=weaponOne;
+        weaponNumber[1]=weaponTwo;
+        Sequence attack;
+    
+        while ((healthPlayers[1]!=0) && (healthPlayers[2]!=0)){ 
+
+	        if (playerNumber==1){
+                attack=AIcombatFunction(1);
+		        critical=criticalHitFunction(attack.target);
+                weaponDamage=damageFunction(weaponNumber[0], critical);
+		  
+                if (attack.success==1){
+                    printf("Succesful Hit on the Murderer!\n");
+		            healthPlayer[2]=healthPlayer[2]-weaponDamage;
+		        }
+                if else ((attack.success==1) && (critical==1){
+                    printf("Critical Hit on the Murderer!\n");
+		            healthPlayer[2]=healthPlayer[2]-weaponDamage;
+                }
+                else{
+			        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+			        printf("The Detective's attack was blocked, and dealt half the weaponDamage");
+			        printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+		        }
+                playerNumber+=1;
+		    }
+	        if else (playerNumber ==2){
+		        attack=AICombatFunction(2);
+		        critical=criticalHitFunction(attack.target);
+                weaponDamage=damageFunction(weaponNumber[1], critical);
+        
+                if (attack.success==1){
+                    printf("Succesful Hit on the Detective!\n");
+		            healthPlayer[1]=healthPlayer[1]-weaponDamage;
+                }
+                if else ((attack.success==1) && (critical==1){
+                    printf("Critical Hit on the Detective!\n");
+		            healthPlayer[2]=healthPlayer[2]-weaponDamage;
+                }  
+                else{
+         	        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+			        printf("The Murderer's attack was blocked, and dealt half the weaponDamage");
+			        printf("The Detective's health: %.1f\n The Murderer's's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+                }
+                playerNumber-=1;
+            }
+        }
+        if (healthPlayer[1]==0){
+            printf("The Murderer wins.... \n\nGAME OVER\n\n");
+            return 1;
+        }
+        if else (healthPlayer[2]==0){
+            printf("The Detective wins, justice is served. \n\nGAME OVER\n\n");
+            return 2;
+        }
+    }
 }
+//multiplayer fight sequence taking in inputs from two parties
+void multiPlayerFightSequence(int weaponOne, weaponTwo){
+        //beginning the fight
+        printf("\n\n FIGHT \n\n");
 
+        int playerNumber, critical, weaponNumber[2]
+        float weaponDamage, healthPlayers[1,2]=10,10;
 
+        weaponNumber[0]=weaponOne;
+        weaponNumber[1]=weaponTwo;
+        Sequence attack;
+    
+        while ((healthPlayers[1]!=0) && (healthPlayers[2]!=0)){ 
+
+	        if (playerNumber==1){
+                attack=combatFunction(1,2);
+		        critical=criticalHitFunction(attack.target);
+                weaponDamage=damageFunction(weaponNumber[0], critical);
+		  
+                if (attack.success==1){
+                    printf("Succesful Hit on the Murderer!\n");
+		            healthPlayer[2]=healthPlayer[2]-weaponDamage;
+		        }
+                if else ((attack.success==1) && (critical==1){
+                    printf("Critical Hit on the Murderer!\n");
+		            healthPlayer[2]=healthPlayer[2]-weaponDamage;
+                }
+                else{
+			        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+			        printf("The Detective's attack was blocked, and dealt half the weaponDamage");
+			        printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+		        }
+                playerNumber+=1;
+		    }
+	        if else (playerNumber ==2){
+		        attack=combatFunction(2,1);
+		        critical=criticalHitFunction(attack.target);
+                weaponDamage=damageFunction(weaponNumber[1], critical);
+        
+                if (attack.success==1){
+                    printf("Succesful Hit on the Detective!\n");
+		            healthPlayer[1]=healthPlayer[1]-weaponDamage;
+                }
+                if else ((attack.success==1) && (critical==1){
+                    printf("Critical Hit on the Detective!\n");
+		            healthPlayer[2]=healthPlayer[2]-weaponDamage;
+                }  
+                else{
+         	        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+			        printf("The Murderer's attack was blocked, and dealt half the weaponDamage");
+			        printf("The Detective's health: %.1f\n The Murderer's's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+                }
+                playerNumber-=1;
+            }
+        }
+        if (healthPlayer[1]==0){
+            printf("The Murderer wins.... \n\nGAME OVER\n\n");
+            return 1;
+        }
+        if else (healthPlayer[2]==0){
+            printf("The Detective wins, justice is served. \n\nGAME OVER\n\n");
+            return 2;
+        }
+    }
+}
+//beginning main function
 int main() 
 {
     //Establish the variables, they are separated into catagories based on what potion of the code they belong to
@@ -448,6 +606,9 @@ int main()
     int weap1, weap2, weap3, whichone;
     int per1, per2, per3, per4, per5, per6;
     Input errorCheck;
+
+    //line to convert input to int using atoi
+    char line[100];
     
     //randomizer in time
     srand(time(NULL));
@@ -489,23 +650,27 @@ int main()
 
     //promting the user to find out what room they'd like to explore
     printf("\nWhat room would you like to explore? (please enter a number): ");
-    scanf("%d", &userInput);
+    fgets(line,100,stdin);
+    userInput=atoi(line);
 
-    //Error checking
-    errorCheck = errorCheck(userInput, 7, "What room would you like to explore? (please enter an integer) ");
     
-
+        //Error checking
+        errorCheck = errorCheck(userInput, 7, "What room would you like to explore? (please enter an integer) ");
+        userInput=errorCheck.input
+    }
     //this is the function to go inside individual rooms
     explore(userInput, room);
-    printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+    printf("\nWould you like to keep exploring? (1 for yes, 2 for no): ");
     scanf("%d", &userInput);
-
+    
+    if ((userInput <0) || (userInput>1)){
     //Error checking
-    errorCheck = errorCheck(userInput, 2, "\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+    errorCheck = errorCheck(userInput, 2, "\nWould you like to keep exploring? (1 for yes, 2 for no): ");
     userInput=errorCheck.input;
+    }
 
     //If the user wishes to continue exploring
-    while (userInput == 0) {
+    while (userInput == 1) {
       printf("\nWhat room would you like to explore? (please enter a number): ");
       scanf("%d", & userInput);
       //Error checking
@@ -513,11 +678,11 @@ int main()
       userInput=errorCheck.input;
 
       explore(userInput, room);
-      printf("\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+      printf("\nWould you like to keep exploring? (1 for yes, 2 for no): ");
       scanf("%d", & userInput);
 
       //Error checking
-      errorCheck = errorCheck(userInput, 2, "\nWould you like to keep exploring? (0 for yes, 1 for no): ");
+      errorCheck = errorCheck(userInput, 2, "\nWould you like to keep exploring? (1 for yes, 2 for no): ");
       userInput=errorCheck.input;
     }
 
@@ -537,19 +702,20 @@ int main()
 
     //correctGuess is the variable that returns whether the guess was correct or not
     //If the guess is incorrect this code reprompts them
-    if (correctGuess == 0) {} else if (correctGuess == 1) {
-      printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-      scanf("%d", & userInput);
+    if (correctGuess == 1) {
+      printf("\nWould you like to try again? (1 for yes, 2 for no): ");
+      fgets(line,100,stdin);
+      userInput=atoi(line);
 
       //Error check
-      errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (0 for yes, 1 for no): ");
+      errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
       userInput=errorCheck.input;
 
       //places the user into a loop until they want to exit or guess correctly
-      while (userInput == 0) {
+      while (userInput == 1) {
         printf("\n\nWhere did it happen: (please enter an integer)");
-        scanf("%d", & Guess.room);
-
+        fgets(line,100,stdin);
+        Guess.room=atoi(line);
         //Error checking
         errorCheck = errorCheck(Guess.room, 7, "\nWhere did it happen: (please enter an integrer)");
         Guess.room=errorCheck.input;
@@ -557,13 +723,15 @@ int main()
         correctGuess = userguess(Guess.room, room);
 
         if (correctGuess == 0) {
-          userInput = 0;
-        } else {
-          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
-          scanf("%d", & userInput);
+          userInput = 2;
+        } 
+        else {
+        printf("\nWould you like to try again? (1 for yes, 2 for no): ");
+          fgets(line,100,stdin);
+          userInput=atoi(line);
 
           //Error check
-          errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (0 for yes, 1 for no): ");
+          errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
           userInput=errorCheck.input;
         }
       }
@@ -605,7 +773,7 @@ int main()
     printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
     scanf("%d", &userInput);
 
-    //Error checking
+    //Error checking, it was too complex to add input variables to the error check function, for the sake of simplicity, pasted raw code here
     errorCheck = errorCheck(userInput, 4);
     userInput=errorCheck.input;
     while (errorCheck == 1) {
@@ -617,35 +785,29 @@ int main()
     }
 
     testweap(userInput);
-    printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+    printf("\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
     scanf("%d", & userInput);
     //Error check
-      errorCheck = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+      errorCheck = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
       userInput = errorCheck.input;
       
       
 
     //If the user wants to continue to investgate it send them here
-    while (userInput == 0) {
+    while (userInput == 1) {
       printf("\nWhich one would you like to invesitgate? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
       scanf("%d", & userInput);
 
       //Error checking
-      errorCheck = errorCheck(userInput, 3);
+      errorCheck = errorCheck(userInput, 3, "\nWhich one would you like to invesitgate? ");
       userInput = errorCheck.input;
-      while (errorCheck == 1) {
-        userInput = 0;
-        printf("\nWhich one would you like to invesitgate? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
-        scanf("%d", & userInput);
-        errorCheck = errorCheck(userInput, 3);
-      }
 
       testweap(userInput);
-      printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+      printf("\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
       scanf("%d", & userInput);
 
       //Error check
-      errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (0 for yes, 1 for no): ");
+      errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
       userInput = errorCheck.input;
     }
 
@@ -660,14 +822,14 @@ int main()
 
     //correctGuess is the variable that returns whether the guess was correct or not
     //If the guess is incorrect this code repromts one more time
-    if (correctGuess == 0) {} else if (correctGuess == 1) {
-      printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+    if (correctGuess == 1) {} else if (correctGuess == 1) {
+      printf("\nWould you like to try again? (1 for yes, 2 for no): ");
       scanf("%d", & userInput);
       //Error check
-      errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (0 for yes, 1 for no): ");
+      errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
       userInput = errorCheck.input;
 
-      if (userInput == 0) {
+      if (userInput == 1) {
         printf("\n\nWhat was used to kill them: (please enter an integrer): ");
         scanf("%d", & Guess.weapon);
 
@@ -694,15 +856,15 @@ int main()
 
     investigate(userInput, murderer, per1, per2, per3, per4, per5, per6);
 
-    printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+    printf("\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
     scanf("%d", & userInput);
 
     //Error checking
-    errorCheck = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+    errorCheck = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
     userInput = errorCheck.input;
 
     //If the user wants to continue to investgate it send them here
-    while (userInput == 0) {
+    while (userInput == 1) {
       printf("\nCHOOSE WHO YOU'D LIKE TO INVESITGATE (please enter a number): ");
       scanf("%d", & userInput);
 
@@ -711,11 +873,11 @@ int main()
       userInput = errorCheck.input;
 
       investigate(userInput, murderer, per1, per2, per3, per4, per5, per6);
-      printf("\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+      printf("\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
       scanf("%d", & userInput);
 
       //Error checking
-      errorCheck = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (0 for yes, 1 for no): ");
+      errorCheck = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
         
     }
     //Guess who is the murderer
@@ -731,14 +893,14 @@ int main()
 
     //correctGuess is the variable that returns whether the guess was correct or not
     //If the guess is incorrect this code reprompts them
-    if (correctGuess == 0) {} else if (correctGuess == 1) {
-      printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+    if (correctGuess == 1) {} else if (correctGuess == 1) {
+      printf("\nWould you like to try again? (1 for yes, 2 for no): ");
       scanf("%d", & userInput);
 
       //Error check
-      errorCheck = errorCheck(userInput, 2), "\nWould you like to try again? (0 for yes, 1 for no): ";
+      errorCheck = errorCheck(userInput, 2), "\nWould you like to try again? (1 for yes, 2 for no): ";
       userInput = errorCheck.input;
-      while (userInput == 0) {
+      while (userInput == 1) {
         printf("\n\nWho is the murderer: (please enter an integer)");
         scanf("%d", & Guess.murderer);
 
@@ -749,63 +911,62 @@ int main()
         //checking their guess against the proper value      
         correctGuess = userguess(Guess.murderer, murderer);
 
-        if (correctGuess == 0) {
+        if (correctGuess == 1) {
           userInput = 0;
         } 
         else {
-          printf("\nWould you like to try again? (0 for yes, 1 for no): ");
+          printf("\nWould you like to try again? (1 for yes, 2 for no): ");
           scanf("%d", & userInput);
           //Error check
-          errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (0 for yes, 1 for no): ");
+          errorCheck = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
           userInput = errorCheck.input;
         }
       }
     }
-    /*
-    //displaying statements to begin the fight, informing the user of the basic rules
-    printf("%s: You'll never catch me alive!", murdererName);
+    //using the findMurdererName to find their name as a string
+    murdererName = findMurderName(murderer);
+
+    //Displaying statements that lay out the murderer and segway into the fight sequence
+    printf("The Detective: The Murderer is %s!\n", murdererName)
+
+    printf("%s: You'll never catch me alive!\n", murdererName);
     printf("%s grabs the %s and runs into the %s... you follow them", murdererName, weapon, room);
-    printf("They've gone mad, you have to stand your ground. The rules are simple, incapacitate him before he can take you down\n");
+    printf("The Murderer is going berserk, you have to stand your ground before they get everyone else. \nThe rules are simple, incapacitate them before they can take you down\n");
         
     //giving them the option to read more rules just in case
-    printf("\nDo you want more rules? (0 for yes, 1 for no)");
+    printf("\nDo you want more rules? (1 for yes, 2 for no)");
     scanf("%d", &userInput);
-    errorCheck = errorCheck(userInput, 2, "\nDo you want more rules? (0 for yes, 1 for no)");
-    userInput = errorCheck.input;
-
-    printf("\n\n FIGHT \n\n");
-    int playerNumber, critical, result, weaponDamage, healthPlayers[1,2]=10,10;
-    playerNumber=1;
-    weaponDamage=damageFunction(weaponNumber)
-    while ((healthPlayers[1]!=0) && (healthPlayers[2]!=0)){ 
-
-	    if (playerNumber==1){
-        succesfulHit=combatFunction(1,2);
-		    critical=criticalHitFunction(userChoice);
-        weaponDamage=damageFunction(weaponNumber, critical);
-		    
-      }
-		  
-      if (succesfulHit==1){
-			  printf("Succesful Hit!\n");
-			  healthPlayer[1]=healthPlayer[1]-weaponDamage;
-		  else{
-			  healthPlayer[1]=healthPlayer[1]-(weaponDamage/2);
-			  printf("Your attack was blocked, and dealt half the weaponDamage");
-			  printf("Your health: %.1f\n%s's health: %.1f\n", healthPlayer[1], murdererName, healthPlayer[2]);
-		    playerNumber+=1;
-		}
-	    if else (playerNumber ==2){
-		    result=combatFunction(2);
-		    weaponDamage=damageFunction(weaponNumber)
-        criticalHitFunction(userChoice)
-        
-        if result=1
-          healthPlayer[2]=healthPlayer[2]-weaponDamage;
-        else
-         	healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
-        }
-      }
+    //errorchecking
+    errorCheck = errorCheck(userInput, 2, "\nDo you want more rules? (1 for yes, 2 for no)");
+    if (errorCheck.input == 1){
+        //if they say yes, display the rules, otherwise continue running the file
+        openFightRulesFile();
     }
-  */
-  }
+
+    //displaying their available weapons
+    printf("\nThe Detective's available weapons: %d, %d\n", weap2, weap3);
+    printf("What will you choose? ");
+    fgets(line,100,stdin);
+    detectiveWeapon=atoi(line);
+
+    //error checking
+    while ((detectiveWeapon != weap2) && (detectiveWeapon != weap3)){
+        printf("\n\n Error, input is out of bounds. \n\n");
+        printf("\nThe Detective's available weapons: %d, %d\n", weap2, weap3);
+        printf("What will you choose? ");
+        fgets(line,100,stdin);
+        detectiveWeapon=atoi(line);
+    }
+    
+    //Single Player or Multiplayer
+    printf("One or Two Players? (1 for Single Player, 2 for Multiplayer\n");
+    scanf("%d", &numPlayers);
+    errorCheck = errorCheck(numPlayers, 2, "One or Two Players? (1 for Single Player, 2 for Multiplayer\n")
+
+    if (numPlayers == 2){
+        multiPlayerFightSequence(detectiveWeapon, weapon);
+    }
+    if else (numPlayers == 1){
+        singlePlayerFightSequence(detectiveWeapon, weapon);
+    }
+}
