@@ -1,5 +1,3 @@
-//Authors: Melissa Flores and Hunter Difabio
-
 //importing libraries
 #include <stdio.h>
 #include <stdlib.h>
@@ -860,8 +858,8 @@ int main() {
     per6 = randomNumber(7);
   } 
 
-  //Error checking, please delete before turning in
-  printf("%d, %d, %d", murderer, weapon, room);
+  //Error checking-->To use while debugging
+  //printf("%d, %d, %d", murderer, weapon, room);
 
   //The start of searching for the room
   printf("\n");
