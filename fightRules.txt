@@ -1,0 +1,38 @@
+After completing the investigation, you will be prompted to fight the murderer,
+
+GAME MODES:
+You can choose to play with either one or two players, in two player mode:
+Player One plays as the Detective
+Player Two plays as the Murderer
+
+In single player:
+Player One plays as the Detective
+"Player Two" is controlled by the computer, and plays as the Murderer
+
+MECHANICS:
+Combat is turn-based and is based on predicting the opponent's block or attack
+
+Players choose if they want to attack or block in three positions: low, middle, or high
+
+If an attack lands it deals full damage and has the chance to critically strike, doubling its damage.
+Critical strike chance is based on position of the attack.
+
+If the person blocking succesfully predicts the position of the attack, the attack will deal only half damage
+and cannot critically strike.
+
+Weapon Damage varies based on the weapon selected, their damages are as follows:
+
+1.) Knife, 3 Damage
+2.) Revolver, 4 Damage
+3.) Rope, 1 Damage
+4.) Wrench, 2 Damage
+5.) Candlestick, 1 Damage
+6.) Lead pipe. 2 Damage
+7.) Sword, 4 Damage
+
+GAMEPLAY:
+The Murderer is equipped with their murder weapon, the Detective must choose between the other two weapons.
+The Detective will always attack first.
+
+Both players begin with 10 health. 
+Combat continues until either player reaches 0 health.
