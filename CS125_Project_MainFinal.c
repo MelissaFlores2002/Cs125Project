@@ -35,8 +35,12 @@ void openExtraInfo() {
   int x;
 
   FILE* f1 = fopen("extrainfo.txt", "r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+    return;
+  }
+  //prints 32 lines from the txt file
   for (x = 0; x < 32; x++) {
-    //prints 32 lines from the txt file
     fgets(str, 2000000, f1);
     printf("%s", str);
   }
@@ -50,8 +54,12 @@ void openRoom() {
   int x;
 
   FILE* f1 = fopen("rooms.txt", "r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+    return;
+  }
+  //prints 8 lines from the txt file
   for (x = 0; x < 8; x++) {
-    //prints 8 lines from the txt file
     fgets(str, 2000000, f1);
     printf("%s", str);
   }
@@ -64,8 +72,12 @@ void openFightRulesFile() {
   int x;
 
   FILE* f1 = fopen("fightRules.txt", "r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+    return;
+  }
+  //prints 30 lines from the txt file
   for (x = 0; x < 30; x++) {
-    //prints 30 lines from the txt file
     fgets(str, 2000000, f1);
     printf("%s", str);
   }
@@ -79,8 +91,12 @@ void openWeapons() {
   int x;
 
   FILE* f1 = fopen("weapons.txt", "r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+    return;
+  }
+  //prints 8 lines from the txt file
   for (x = 0; x < 8; x++) {
-    //prints 8 lines from the txt file
     fgets(str, 2000000, f1);
     printf("%s", str);
   }
@@ -94,8 +110,12 @@ void openSuspects() {
   int x;
 
   FILE* f1 = fopen("suspects.txt", "r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+    return;
+  }
+  //prints 8 lines from the txt file
   for (x = 0; x < 8; x++) {
-    //prints 8 lines from the txt file
     fgets(str, 2000000, f1);
     printf("%s", str);
   }
@@ -109,7 +129,12 @@ void story(int y, int z) {
   char str[2000000];
   int x;
   //opening the file and printing all lines from it
-  FILE* f1 = fopen("Storyline.txt", "r");
+  FILE* f1 = fopen("storyLine.txt", "r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+    return;
+  }
+  //returns as many lines as inputted
   for (x = y; x < z; x++) {
     fgets(str, 2000000, f1);
     printf("%s", str);
@@ -121,6 +146,10 @@ void story(int y, int z) {
 int userGuessCheck(int guess, int real) {
   //opening the file for appending
   FILE* ptr = fopen("records.txt", "a");
+  if (ptr==NULL){
+    printf("ERROR opening file\n");
+    return 2;
+}
   //print the guess in the records.txt file and to the screen
   if (guess == real) {
     fprintf(ptr, "Correct: %d\n", guess);
@@ -362,25 +391,27 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
 /*function which grabs the integer value of the murderer and runs through the .txt file of murder suspects to match the integer to the line
 of the file, then it grabs that line as a string of characters and returns the string
 */
-char findMurdererName(int murdererNumber){
+void findMurdererName(int murdererNumber, char* murdererName){
   int loopCounter, lengthLine;
-  FILE* f1=fopen("suspects.txt",'r');
-  char murdererName[100], line[100];
-  //loop which moves through lines of the file until it reaches the line that contains the murderer's name
+  FILE* f1=fopen("suspects.txt","r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+  }
+  char line[100];
+ //loop which moves through lines of the file until it reaches the line that contains the murderer's name
   for (loopCounter=1; loopCounter<=murdererNumber+1; loopCounter++){
-    fgets(line,100,stdin);
+    fgets(line,100,f1);
     if (loopCounter==murdererNumber+1){
       strcpy(murdererName,line);
     }
   }
   //setting line equal to murdererName for usage in the below loop
-  strcpy(line,murdererName);
+  strcpy(line, murdererName);
   lengthLine=strlen(line);
   //another loop which will erase the first 4 characters from the string, this is so that the name does not include something like "2.) "
   for (loopCounter = 0; loopCounter<lengthLine; loopCounter ++){
-    murdererName[loopCounter] == line[loopCounter+4];
+    murdererName[loopCounter] = line[loopCounter+4];
   }
-  return murdererName;
 }
 //Beginning combat functions
 
@@ -440,7 +471,7 @@ Sequence AICombatFunction(int playerTurn){
     computerAttack.target=AItargetFunction();
 
 	  printf("Player One, press 1, 2, or 3 to block their attack: ");
-	  scanf("%d", userBlock.target);
+	  scanf("%d", &userBlock.target);
         
     //error checking
     errorCheckTest=errorCheck(userBlock.target, 3, "Please try again, press 1, 2, or 3 to block Player %d's attack: ");
@@ -457,13 +488,13 @@ Sequence AICombatFunction(int playerTurn){
   else if (playerTurn == 1){
     //when the player is attacking, the AI must block their attack
     printf("Player One you are attacking now, press 1, 2, or 3 to attack: ");
-	  scanf("%d", userAttack.target);
+	  scanf("%d", &userAttack.target);
         
     //error checking
     errorCheckTest=errorCheck(userAttack.target, 3, "Please try again, press 1, 2, or 3 to attack: ");
     userAttack.target=errorCheckTest.userInput;
 
-    printf("The Murderer is calculating where to block... \n")
+    printf("The Murderer is calculating where to block... \n");
     //calling the AI target function to determine positiopn
     computerBlock.target=AItargetFunction();
         
@@ -483,7 +514,7 @@ Sequence combatFunction(int attackingPlayerNumber, int blockingPlayerNumber){
 
   //print statements which prompt the attacking user to attack
 	printf("Player %d you are attacking now, press 1, 2, or 3 to attack: ", attackingPlayerNumber);
-	scanf("%d", attack.target);
+	scanf("%d", &attack.target);
     
   //error checking
   errorCheckTest=errorCheck(attack.target, 3, "Please try again, press 1, 2, or 3 to attack: ");
@@ -491,7 +522,7 @@ Sequence combatFunction(int attackingPlayerNumber, int blockingPlayerNumber){
   
   //print statements prompting the blocking user to block
 	printf("Player %d, press 1, 2, or 3 to block their attack: ", blockingPlayerNumber);
-	scanf("%d", block.target);
+	scanf("%d", &block.target);
 
   //error checking
   errorCheckTest=errorCheck(block.target, 3, "Please try again, press 1, 2, or 3 to block Player %d's attack: ");
@@ -512,8 +543,8 @@ int singlePlayerFightSequence(int weaponOne, int weaponTwo){
   printf("\n\n FIGHT \n\n");
 
   //initializing variables
-  int playerNumber, critical, weaponNumber[2]
-  float weaponDamage, healthPlayers[1,2]=10,10;
+  int playerNumber, critical, weaponNumber[2];
+  float weaponDamage, healthPlayers[2]={10,10};
 
   weaponNumber[0]=weaponOne;
   weaponNumber[1]=weaponTwo;
@@ -532,22 +563,23 @@ int singlePlayerFightSequence(int weaponOne, int weaponTwo){
       */
       if (attack.success==1){
         printf("Successful Hit on the Murderer!\n");
-        healthPlayer[2]=healthPlayer[2]-weaponDamage;
+        healthPlayers[2]=healthPlayers[2]-weaponDamage;
       }
       else if ((attack.success==1) && (critical==1)){
         printf("Critical Hit on the Murderer!\n");
-        healthPlayer[2]=healthPlayer[2]-weaponDamage;
+        healthPlayers[2]=healthPlayers[2]-weaponDamage;
       }
       else if ((attack.success==0) && (critical==1)){
         printf("Critical Hit on the Murderer, though The Detective's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage);
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
+      }
       else{
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
 	      printf("The Detective's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage);
         
 	    }
       //display the health of both people
-      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayers[1], healthPlayers[2]);
       //give the turn to player two
       playerNumber+=1;
 	  }
@@ -559,34 +591,33 @@ int singlePlayerFightSequence(int weaponOne, int weaponTwo){
         
       if (attack.success==1){
         printf("Succesful Hit on the Detective!\n");
-		    healthPlayer[1]=healthPlayer[1]-weaponDamage;
+		    healthPlayers[1]=healthPlayers[1]-weaponDamage;
       }
-      else if ((attack.success==1) && (critical==1){
+      else if ((attack.success==1) && (critical==1)){
         printf("Critical Hit on the Detective!\n");
-		    healthPlayer[2]=healthPlayer[2]-weaponDamage;
+		    healthPlayers[2]=healthPlayers[2]-weaponDamage;
       }  
       else if ((attack.success==0) && (critical==1)){
         printf("Critical Hit on the Detective, though The Murderer's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage/2);
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
       }
       else{
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
 		    printf("The Murderer's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage/2);
       }
       //display the health of both people
-      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayers[1], healthPlayers[2]);
       //give the turn back to player one
       playerNumber-=1;
-      }
     }
   }
   //if the health of The Detective hits 0, The Murderer wins
-  if (healthPlayer[1]==0){
+  if (healthPlayers[1]==0){
   printf("The Murderer wins.... \n\nGAME OVER\n\n");
   return 1;
   }
   //if the health of The Murderer hits 0, The Detective wins
-  else if (healthPlayer[2]==0){
+  else if (healthPlayers[2]==0){
     printf("The Detective wins, justice is served. \n\nGAME OVER\n\n");
     return 2;
   }
@@ -597,8 +628,8 @@ int multiPlayerFightSequence(int weaponOne, int weaponTwo){
   //beginning the fight
   printf("\n\n FIGHT \n\n");
 
-  int playerNumber, critical, weaponNumber[2]
-  float weaponDamage, healthPlayers[1,2]=10,10;
+  int playerNumber, critical, weaponNumber[2];
+  float weaponDamage, healthPlayers[2]={10,10};
 
   weaponNumber[0]=weaponOne;
   weaponNumber[1]=weaponTwo;
@@ -612,23 +643,25 @@ int multiPlayerFightSequence(int weaponOne, int weaponTwo){
       weaponDamage=damageFunction(weaponNumber[0], critical);
       if (attack.success==1){
         printf("Succesful Hit on the Murderer!\n");
-		    healthPlayer[2]=healthPlayer[2]-weaponDamage;
+		    healthPlayers[2]=healthPlayers[2]-weaponDamage;
 		  }
       else if ((attack.success==0) && (critical==1)){
         printf("Critical Hit on the Murderer, though The Detective's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage/2);
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
       }
-      else if ((attack.success==1) && (critical==1){
+      else if ((attack.success==1) && (critical==1)){
         printf("Critical Hit on the Murderer!\n");
-		    healthPlayer[2]=healthPlayer[2]-weaponDamage;
+		    healthPlayers[2]=healthPlayers[2]-weaponDamage;
       }
       else{
-			  healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+			  healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
 			  printf("The Detective's attack was blocked, and dealt half the damage: %.1f\n", weaponDamage/2);
-			  printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
 		  }
+      //display the health of both people
+      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayers[1], healthPlayers[2]);
+      //give the turn to player two
       playerNumber+=1;
-		  }
+		}
 	  else if (playerNumber ==2){
 		  attack=combatFunction(2,1);
 		  critical=criticalHitFunction(attack.target);
@@ -636,35 +669,33 @@ int multiPlayerFightSequence(int weaponOne, int weaponTwo){
         
       if (attack.success==1){
         printf("Succesful Hit on the Detective!\n");
-		    healthPlayer[1]=healthPlayer[1]-weaponDamage;
+		    healthPlayers[1]=healthPlayers[1]-weaponDamage;
       }
-      else if ((attack.success==1) && (critical==1){
+      else if ((attack.success==1) && (critical==1)){
         printf("Critical Hit on the Detective! \n");
-		    healthPlayer[2]=healthPlayer[2]-weaponDamage;
+		    healthPlayers[2]=healthPlayers[2]-weaponDamage;
       }  
       else if ((attack.success==0) && (critical==1)){
         printf("Critical Hit on the Detective, though The Murderer's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage/2);
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
       }
       else{
-        healthPlayer[2]=healthPlayer[2]-(weaponDamage/2);
+        healthPlayers[2]=healthPlayers[2]-(weaponDamage/2);
 		    printf("The Murderer's attack was blocked, and dealt half the damage: %.1f \n", weaponDamage/2);
       }
       //display the health of both people
-      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayer[1], healthPlayer[2]);
+      printf("The Detective's health: %.1f\n The Murderer's health: %.1f\n", healthPlayers[1], healthPlayers[2]);
       //gives the turn back to Player One
       playerNumber-=1;
-      
     }
   }
-  if (healthPlayer[1]==0){
+  if (healthPlayers[1]==0){
     printf("The Murderer wins.... \n\nGAME OVER\n\n");
     return 1;
   }
-  else if (healthPlayer[2]==0){
+  else if (healthPlayers[2]==0){
     printf("The Detective wins, justice is served. \n\nGAME OVER\n\n");
     return 2;
-  }
   }
 }
 //beginning main function
@@ -673,14 +704,13 @@ int main() {
   userGuess Guess;
   Input errorCheckTest;
 
-  int murderer, weapon, room, userInput, correctGuess;
-  int countermur = 0, countwea = 0, countroo = 0;
-  int weap1, weap2, weap3, whichone;
+  int murderer, weapon, room, userInput, correctGuess, numPlayers;
+  int weap1, weap2, weap3, whichWeapon, detectiveWeapon;
   int per1, per2, per3, per4, per5, per6;
-
 
   //line to convert input to int using atoi
   char line[100];
+  char murdererString[100];
     
   //seeding time to allow for true random values from here to the end of the code
   srand(time(NULL));
@@ -727,7 +757,7 @@ int main() {
   userInput=atoi(line);
   //Error checking
   errorCheckTest = errorCheck(userInput, 7, "What room would you like to explore? (please enter an integer) ");
-  userInput=errorCheckTest.userInput
+  userInput=errorCheckTest.userInput;
   
   //this is the function to go inside individual rooms
   explore(userInput, room);
@@ -813,13 +843,13 @@ int main() {
 
   //randomizing where the real weapon is 
   //srand(time(NULL));
-  whichone = randomNumber(3);
+  whichWeapon = randomNumber(3);
 
   //randomizing the weapon choices for the user
-  switch (whichone) {
+  switch (whichWeapon) {
     case 1:
       weap1 = weapon;
-      weap2 = randonNumber(7);
+      weap2 = randomNumber(7);
       weap3 = randomNumber(7);
       break;
     case 2:
@@ -970,7 +1000,7 @@ int main() {
     scanf("%d", & userInput);
 
     //Error check
-    errorCheckTest = errorCheck(userInput, 2), "\nWould you like to try again? (1 for yes, 2 for no): ";
+    errorCheckTest = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
     userInput = errorCheckTest.userInput;
     while (userInput == 1) {
       printf("\n\nWho is the murderer: (please enter an integer)");
@@ -988,21 +1018,22 @@ int main() {
       } 
       else {
         printf("\nWould you like to try again? (1 for yes, 2 for no): ");
-        scanf("%d", & userInput);
+        scanf("%d", &userInput);
         //Error check
         errorCheckTest = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
         userInput = errorCheckTest.userInput;
       }
     }
   }
+  
   //using the findMurdererName function to find their name as a string
-  murdererName = findMurderName(murderer);
+  findMurdererName(murderer, murdererString);
 
   //Displaying statements that lay out the murderer and segway into the fight sequence
-  printf("The Detective: The Murderer is %s!\n", murdererName)
+  printf("The Detective: The Murderer is %s!\n", murdererString);
 
-  printf("%s: You'll never catch me alive!\n", murdererName);
-  printf("%s grabs the %s and runs into the %s... you follow them", murdererName, weapon, room);
+  printf("%s: You'll never catch me alive!\n", murdererString);
+  printf("%s grabs the %s and runs into the %s... you follow them", murdererString, weapon, room);
   printf("The Murderer is going berserk, you have to stand your ground before they get everyone else. \nThe rules are simple, incapacitate them before they can take you down\n");
         
   //giving them the option to read more rules just in case
@@ -1033,7 +1064,7 @@ int main() {
   //Single Player or Multiplayer
   printf("One or Two Players? (1 for Single Player, 2 for Multiplayer\n");
   scanf("%d", &numPlayers);
-  errorCheckTest = errorCheck(numPlayers, 2, "One or Two Players? (1 for Single Player, 2 for Multiplayer\n")
+  errorCheckTest = errorCheck(numPlayers, 2, "One or Two Players? (1 for Single Player, 2 for Multiplayer\n");
 
   if (errorCheckTest.userInput == 2){
     multiPlayerFightSequence(detectiveWeapon, weapon);
