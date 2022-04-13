@@ -225,11 +225,10 @@ certain rooms link to each other via a secret passage and the user can choose to
 the murder feel like a mystery which must be solved rather than one based soley on randomization
 */
 
-int explore(int room, int roomreal) {
+int explore(int room, int roomreal, int* roomsExploredStored, int roomsExplored) {
   Input exploreCheck;
   char line[100];
   bool beenInRoom;
-  int roomsExploredStored[20], roomsExplored=0;
   switch (room) {
   case 1:
     //finding if the user has been to the room which the secret passage connects to
@@ -238,7 +237,7 @@ int explore(int room, int roomreal) {
     printf("\nYou explore the Kitchen.\n");
     //if they haven't been in the library and it is the room of the murder, printf statements accordingly
     if ((beenInRoom==false) && (roomreal==room)){
-      printf("\nThere is blood splattered on the cupboards\n. Additionally, you notice a cupboard is out of place.\n");
+      printf("\nThere is blood splattered on the cupboards.\nAdditionally, you notice a cupboard is out of place.\n");
     }
     //if they have been in the library and the room is not the same as the room of the murder, printf accordingly
     else if ((beenInRoom==true) && (roomreal!=room)){
@@ -249,8 +248,8 @@ int explore(int room, int roomreal) {
       printf("\nThere is blood splattered on the cupboards.\nThe hidden passage to the Library is the only other noteworthy thing here\n");
     }
     //if they havent been in the library and it isnt the room of the murder, printf accordingly
-    else if ((beenInRoom==false)) && (roomreal != room)) {
-      printf("One of the cupboards is out of place...\n");
+    else if ((beenInRoom==false) && (roomreal != room)) {
+      printf("One of the cupboards is out of place.\n");
     }
     printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
     scanf("%d", & exploreCheck.userInput);
@@ -268,7 +267,7 @@ int explore(int room, int roomreal) {
       if (exploreCheck.userInput == 1){
         roomsExploredStored[roomsExplored]=1;
         roomsExplored++;
-        explore(3, roomreal);
+        explore(3, roomreal, roomsExploredStored, roomsExplored);
       }
     }
     roomsExploredStored[roomsExplored]=1;
@@ -291,16 +290,16 @@ int explore(int room, int roomreal) {
     beenInRoom=beenInRoomCheck(1, roomsExploredStored, roomsExplored);
     printf("\nYou explore the Library.\n");
     if ((beenInRoom==false) && (roomreal==room)){
-      printf("\nThere seems to be some type of blood on one of the books\n. Additionally, you notice that there is a bookshelf slightly shifted.\n");
+      printf("\nThere seems to be some type of blood on one of the books.\nAdditionally, you notice that there is a bookshelf slightly shifted.\n");
     }
     else if ((beenInRoom==true) && (roomreal!=room)){
       printf("You find nothing out of the ordinary except the hidden passage to the Kitchen. \n");
     }
     else if ((beenInRoom==true) && (roomreal == room)) {
-      printf("\nYou find that there seems to be some type of blood on one of the books.\n The hidden passage to the Kitchen is the only other noteworthy thing here\n");
+      printf("\nYou find that there seems to be some type of blood on one of the books.\nThe hidden passage to the Kitchen is the only other noteworthy thing here\n");
     }
-    else if ((beenInRoom==false)) && (roomreal != room)) {
-      printf("One of the bookshelfs looks like it has been moved recently...\n");
+    else if ((beenInRoom==false) && (roomreal != room)) {
+      printf("One of the bookshelfs looks like it has been moved recently.\n");
     }
     printf("\nWould you like to investigate it? (1 for yes, 2 for no): ");
     scanf("%d", &exploreCheck.userInput);
@@ -316,7 +315,7 @@ int explore(int room, int roomreal) {
       if (exploreCheck.userInput == 1){
         roomsExploredStored[roomsExplored]=3;
         roomsExplored++;
-        explore(1, roomreal);
+        explore(1, roomreal, roomsExploredStored, roomsExplored);
       }
     }
     roomsExploredStored[roomsExplored]=3;
@@ -324,7 +323,7 @@ int explore(int room, int roomreal) {
     break;
 
   case 4:
-    printf("\nYou explore the Ball Room.");
+    printf("\nYou explore the Ball Room.\n");
     if (roomreal == room) {
       printf("\nThere is smeared blood on the flooring.");
     }
@@ -332,11 +331,11 @@ int explore(int room, int roomreal) {
     break;
 
   case 5:
-    printf("\nYou explore the Biliard Room.");
+    printf("\nYou explore the Biliard Room.\n");
     beenInRoom=beenInRoomCheck(7, roomsExploredStored, roomsExplored);
     //if they haven't been in the Dining Room and it is the room of the murder, printf statements accordingly
     if ((beenInRoom==false) && (roomreal==room)){
-      printf("\nOne of the pool cues seems to be broken. Perhaps someone tried to use it to fend the Murderer off.\n. Additionally, you notice a lift in the carpet.\n");
+      printf("\nOne of the pool cues seems to be broken. Perhaps someone tried to use it to fend the Murderer off.\nAdditionally, you notice a lift in the carpet.\n");
     }
     //if they have been in the Dining Room and the room is not the same as the room of the murder, printf accordingly
     else if ((beenInRoom==true) && (roomreal!=room)){
@@ -347,8 +346,8 @@ int explore(int room, int roomreal) {
       printf("\nOne of the pool cues seems to be broken. Perhaps someone tried to use it to fend the Murderer off.\nThe hidden passage to the Dining Room is the only other noteworthy thing here\n");
     }
     //if they havent been in the Dining Room and it isnt the room of the murder, printf accordingly
-    else if ((beenInRoom==false)) && (roomreal != room)) {
-      printf("There's a lift in the carpet\n");
+    else if ((beenInRoom==false) && (roomreal != room)) {
+      printf("There's a lift in the carpet.\n");
     }
     printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
     scanf("%d", &exploreCheck.userInput);
@@ -365,7 +364,7 @@ int explore(int room, int roomreal) {
       if (exploreCheck.userInput == 1){
         roomsExploredStored[roomsExplored]=5;
         roomsExplored++;
-        explore(7, roomreal);
+        explore(7, roomreal, roomsExploredStored, roomsExplored);
       }
     }
     roomsExploredStored[roomsExplored]=5;
@@ -373,7 +372,7 @@ int explore(int room, int roomreal) {
     break;
 
   case 6:
-    printf("\nYou explore the Conservatory.");
+    printf("\nYou explore the Conservatory.\n");
     if (roomreal == room) {
       printf("\nYou notice some smudged blood on one of the windows.");
     }
@@ -381,11 +380,11 @@ int explore(int room, int roomreal) {
     break;
 
   case 7:
-    printf("\nYou explore the Dining Room");
+    printf("\nYou explore the Dining Room.\n");
     beenInRoom=beenInRoomCheck(5, roomsExploredStored, roomsExplored);
     //if they haven't been in the Biliard Room and it is the room of the murder, printf statements accordingly
     if ((beenInRoom==false) && (roomreal==room)){
-      printf("\nThere is blood on the corner of the table. Someone tried to cover it up with the tablecloth.\n. Additionally, you notice an off-colored wooden board underneath the table.\n");
+      printf("\nThere is blood on the corner of the table. Someone tried to cover it up with the tablecloth.\nAdditionally, you notice an off-colored wooden board underneath the table.\n");
     }
     //if they have been in the Biliard Room and the room is not the same as the room of the murder, printf accordingly
     else if ((beenInRoom==true) && (roomreal!=room)){
@@ -396,7 +395,7 @@ int explore(int room, int roomreal) {
       printf("\nhere is blood on the corner of the table. Someone tried to cover it up with the tablecloth.\nThe hidden passage to the Biliard Room is the only other noteworthy thing here\n");
     }
     //if they havent been in the Biliard Room and it isnt the room of the murder, printf accordingly
-    else if ((beenInRoom==false)) && (roomreal != room)) {
+    else if ((beenInRoom==false) && (roomreal != room)) {
       printf("You notice an off-colored wooden board underneath the table.\n");
     }
 
@@ -415,7 +414,7 @@ int explore(int room, int roomreal) {
       if (exploreCheck.userInput == 1){
         roomsExploredStored[roomsExplored]=7;
         roomsExplored++;
-        explore(5, roomreal);
+        explore(5, roomreal, roomsExploredStored, roomsExplored);
       }
     }
     roomsExploredStored[roomsExplored]=7;
@@ -808,6 +807,8 @@ int main() {
   int weap1, weap2, weap3, whichWeapon, detectiveWeapon;
   int per1, per2, per3, per4, per5, per6;
 
+  //variables for explore purposes
+  int roomsExploredStored[20], roomsExplored=0;
   //line to convert input to int using atoi
   char line[100];
   char murdererString[100];
@@ -860,7 +861,7 @@ int main() {
   userInput=errorCheckTest.userInput;
   
   //this is the function to go inside individual rooms
-  explore(userInput, room);
+  explore(userInput, room, roomsExploredStored, roomsExplored);
   printf("\nWould you like to keep exploring? (1 for yes, 2 for no): ");
   scanf("%d", &userInput);
     
@@ -877,7 +878,7 @@ int main() {
     errorCheckTest = errorCheck(userInput, 7, "\nWhat room would you like to explore? (please enter a number): ");
     userInput=errorCheckTest.userInput;
 
-    explore(userInput, room);
+    explore(userInput, room, roomsExploredStored, roomsExplored);
     printf("\nWould you like to keep exploring? (1 for yes, 2 for no): ");
     scanf("%d", & userInput);
 
@@ -971,20 +972,14 @@ int main() {
 
   //prompting the user to invesitgate the weapons
   printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
-  fgets(line, 100, stdin);
-  userInput=atoi(line);
+  scanf("%d", &userInput);
 
-  //Error checking, it was too complex to add input variables to the error check function, for the sake of simplicity, pasted raw code here
-  while ((userInput!=weap1) && (userInput!=weap2) && (userInput!=weap3)) {
-    printf("\n\n Error, input is out of bounds. \n\n");
-    printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
-    fgets(line, 100, stdin);
-    userInput=atoi(line);
-  }
+  errorCheckTest = errorCheck(userInput, 3, "\nWhich one would you like to invesitgate first? ");
+  userInput = errorCheckTest.userInput;
 
   testWeap(userInput);
   printf("\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
-  scanf("%d", & userInput);
+  scanf("%d", &userInput);
   //Error check
   errorCheckTest = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
   userInput = errorCheckTest.userInput;
@@ -994,15 +989,10 @@ int main() {
   //If the user wants to continue to investgate it send them here
   while (userInput == 1) {
     printf("\nWhich one would you like to invesitgate? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
-    scanf("%d", & userInput);
+    scanf("%d", &userInput);
 
-    //Error checking, it was too complex to add input variables to the error check function, for the sake of simplicity, pasted raw code here
-    while ((userInput!=weap1) && (userInput!=weap2) && (userInput!=weap3)) {
-      printf("\n\n Error, input is out of bounds. \n\n");
-      printf("\nWhich one would you like to invesitgate first? (type 1 for %d, 2 for %d, 3 for %d): ", weap1, weap2, weap3);
-      fgets(line, 100, stdin);
-      userInput=atoi(line);
-    }
+    errorCheckTest = errorCheck(userInput, 3, "\nWhich one would you like to invesitgate first? ");
+    userInput = errorCheckTest.userInput;
 
     testWeap(userInput);
     printf("\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
