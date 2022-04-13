@@ -526,6 +526,52 @@ void findMurdererName(int murdererNumber, char* murdererName){
     murdererName[loopCounter] = line[loopCounter+4];
   }
 }
+
+void findWeaponName(int weaponNumber, char* weaponName){
+  int loopCounter, lengthLine;
+  FILE* f1=fopen("weapons.txt","r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+  }
+  char line[100];
+ //loop which moves through lines of the file until it reaches the line that contains the murderer's name
+  for (loopCounter=1; loopCounter<=weaponNumber+1; loopCounter++){
+    fgets(line,100,f1);
+    if (loopCounter==weaponNumber+1){
+      strcpy(weaponName,line);
+    }
+  }
+  //setting line equal to weaponName for usage in the below loop
+  strcpy(line, weaponName);
+  lengthLine=strlen(line);
+  //another loop which will erase the first 4 characters from the string, this is so that the name does not include something like "2.) "
+  for (loopCounter = 0; loopCounter<lengthLine; loopCounter ++){
+    weaponName[loopCounter] = line[loopCounter+4];
+  }
+}
+void findRoomName(int roomNumber, char* roomName){
+  int loopCounter, lengthLine;
+  FILE* f1=fopen("rooms.txt","r");
+  if (f1==NULL){
+    printf("ERROR opening file\n");
+  }
+  char line[100];
+ //loop which moves through lines of the file until it reaches the line that contains the murderer's name
+  for (loopCounter=1; loopCounter<=roomNumber+1; loopCounter++){
+    fgets(line,100,f1);
+    if (loopCounter==roomNumber+1){
+      strcpy(roomName,line);
+    }
+  }
+  //setting line equal to weaponName for usage in the below loop
+  strcpy(line, roomName);
+  lengthLine=strlen(line);
+  //another loop which will erase the first 4 characters from the string, this is so that the name does not include something like "2.) "
+  for (loopCounter = 0; loopCounter<lengthLine; loopCounter ++){
+    roomName[loopCounter] = line[loopCounter+4];
+  }
+}
+
 //Beginning combat functions
 
 int criticalHitFunction(int target){
@@ -559,7 +605,7 @@ float damageFunction(int weapon, int critical){
         weaponDamage=weaponDamage*2;
 	return weaponDamage;
 }
-
+1
 int AItargetFunction(){
 //rolls randomly to determine position of attack, it is more likely to attack higher positions due to the increased critical strike chance
   int roll, target;
@@ -825,7 +871,7 @@ int main() {
   int roomsExploredStored[20], roomsExplored=0;
   //line to convert input to int using atoi
   char line[100];
-  char murdererString[100];
+  char murdererString[100], weaponString[100], roomString[100];
     
   //seeding time to allow for true random values from here to the end of the code
   srand(time(NULL));
@@ -858,8 +904,8 @@ int main() {
     per6 = randomNumber(7);
   } 
 
-  //Error checking-->To use while debugging
-  //printf("%d, %d, %d", murderer, weapon, room);
+  //Error checking, please delete before turning in
+  printf("%d, %d, %d", murderer, weapon, room);
 
   //The start of searching for the room
   printf("\n");
@@ -1133,12 +1179,16 @@ int main() {
   
   //using the findMurdererName function to find their name as a string
   findMurdererName(murderer, murdererString);
+  //using the findWeaponName function to find its name as a string
+  findWeaponName(weapon, weaponString);
+  //using the findRoomName function to find its name as a string
+  findRoomName(room, roomString);
 
   //Displaying statements that lay out the murderer and segway into the fight sequence
   printf("The Detective: The Murderer is %s!\n", murdererString);
 
   printf("%s: You'll never catch me alive!\n", murdererString);
-  printf("%s grabs the %s and runs into the %s... you follow them", murdererString, weapon, room);
+  printf("%s grabs the %s and runs into the %s... you follow them", murdererString, weaponString, roomString);
   printf("The Murderer is going berserk, you have to stand your ground before they get everyone else. \nThe rules are simple, incapacitate them before they can take you down\n");
         
   //giving them the option to read more rules just in case
@@ -1179,4 +1229,4 @@ int main() {
   }
   else 
     printf("ERROR, NO INPUT SELECTED");
-}
+}   
