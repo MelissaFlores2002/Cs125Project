@@ -182,8 +182,7 @@ in its error checking.
 */
 Input errorCheck (int userInput, int range, char errorStatement[100]){
 
-  Input errorCheckTest;
-  char line[100];        
+  Input errorCheckTest;        
   if ((userInput > range) || (userInput < 1)){
     printf("\n\n Error, input is out of bounds. \n\n");
     errorCheckTest.errorCheck=1;
@@ -1232,4 +1231,5 @@ int main() {
   }
   else 
     printf("ERROR, NO INPUT SELECTED");
+    return 0;
 }   
