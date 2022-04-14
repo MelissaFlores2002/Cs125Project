@@ -606,7 +606,7 @@ float damageFunction(int weapon, int critical){
         weaponDamage=weaponDamage*2;
 	return weaponDamage;
 }
-1
+
 int AItargetFunction(){
 //rolls randomly to determine position of attack, it is more likely to attack higher positions due to the increased critical strike chance
   int roll, target;
