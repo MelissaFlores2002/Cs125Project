@@ -449,6 +449,7 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\nI was busy preparing dessert in the kitchen, %d came into the room around the time I was finished", murderer);
+  break;
   case 2:
   if (person==murderer){
     printf("\nI was in the kitchen with %d the entire time.", per1);
@@ -456,6 +457,7 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\nI saw Mr.Peters go into the ballroom with %d earlier that night, then %d and I talked in the Dining Room", per3, per5);
+  break;
   case 3:
   if (person==murderer){
     printf("\nI was in the kitchen with %d the entire time.", per1);
@@ -463,6 +465,7 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\n Mr.Peters and I were in the ballroom dancing but then they left into the Conservatory");
+  break;
   case 4:
   if (person==murderer){
     printf("\nI was in the kitchen with %d the entire time.", per1);
@@ -470,6 +473,7 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\nI saw %d go into the Conservatory, but I never saw them leave", murderer);
+  break; 
   case 5:
   if (person==murderer){
     printf("\nI was in the kitchen with %d the entire time.", per1);
@@ -477,6 +481,7 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\n%d and I were talking in the Dining Room all night about the affair between Mr.Peters and %d, we cant believe that they could do this to %d!", per2, per3, murderer);
+  break;
   case 6:
   if (person==murderer){
     printf("\nI was in the kitchen with %d the entire time.", per1);
@@ -484,6 +489,7 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\n");
+  break;
   case 7:
   if (person==murderer){
     printf("\nI was in the kitchen with %d the entire time.", per1);
@@ -491,8 +497,10 @@ void investigate(int person, int murderer, int per1, int per2, int per3, int per
   }
   else
   printf("\n");
+  break;
   }
 }
+
 
 /*function which grabs the integer value of the murderer and runs through the .txt file of murder suspects to match the integer to the line
 of the file, then it grabs that line as a string of characters and returns the string
@@ -897,7 +905,7 @@ int main() {
     per6 = randomNumber(7);
   } 
 
-  //Error checking, please delete before turning in
+  //Error checking--this statement made it to where we could try different senarios without accidently guess correctly. 
   printf("%d, %d, %d", murderer, weapon, room);
 
   //The start of searching for the room
