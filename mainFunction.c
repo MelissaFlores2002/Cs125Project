@@ -181,7 +181,7 @@ set the structure "errorCheck" to have a value of 0 for "errorCheck" and set the
 in its error checking.
 */
 Input errorCheck (int userInput, int range, char errorStatement[100]){
-
+   char line[100];
   Input errorCheckTest;        
   if ((userInput > range) || (userInput < 1)){
     printf("\n\n Error, input is out of bounds. \n\n");
@@ -200,34 +200,13 @@ Input errorCheck (int userInput, int range, char errorStatement[100]){
   return errorCheckTest;
 }
 
-/*
-function which takes in the input of the roomsExplored array as well as the input of the room
-with the purpose of discovering if the user has been in the room already
-*/
-bool beenInRoomCheck(int room, int* roomsExplored, int numberOfRooms){
-  //loop counter
-  int x;
-  bool check;
-  for (x=0; x<=numberOfRooms; x++){
-    if (roomsExplored[x]==room){
-      check=true;
-    }
-    else{
-      check=false;
-    }
-  }
-  return check;
-}
-
 /*function which scans the room the user is "in" and compares it to the room of the murder, giving specific clues based on the case
 certain rooms link to each other via a secret passage and the user can choose to enter other rooms via the passageways, these intracies help
 the murder feel like a mystery which must be solved rather than one based soley on randomization
 */
-
 int explore(int room, int roomreal, int* roomsExploredStored, int roomsExplored) {
   Input exploreCheck;
   char line[100];
-  bool beenInRoom;
   switch (room) {
   case 1:
     //finding if the user has been to the room which the secret passage connects to
