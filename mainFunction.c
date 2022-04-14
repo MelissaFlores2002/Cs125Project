@@ -878,7 +878,7 @@ int main() {
   srand(time(NULL));
 
   //opens the big list of options, and the story line
-  openExtraInfo(0, 36);
+  //openExtraInfo(0, 36);
   story(0, 54);
 
   //establishing all of the actual variables for the murder
@@ -915,8 +915,8 @@ int main() {
 
   //promting the user to find out what room they'd like to explore
   printf("\nWhat room would you like to explore? (please enter a number): ");
-  fgets(line,100,stdin);
-  userInput=atoi(line);
+  scanf("%d", &userInput);
+    
   //Error checking
   errorCheckTest = errorCheck(userInput, 7, "What room would you like to explore? (please enter an integer) ");
   userInput=errorCheckTest.userInput;
@@ -954,7 +954,7 @@ int main() {
   printf("\n");
 
   //This is where the user will guess where the murder happened
-  printf("\nWhere did it happen: (please enter an integer) ");
+  printf("\nWhere did it happen: (please enter an integer)\n");
   scanf("%d", &Guess.room);
 
   //Error checking
@@ -965,19 +965,20 @@ int main() {
   //correctGuess is the variable that returns whether the guess was correct or not
   //If the guess is incorrect this code reprompts them
   if (correctGuess == 1) {
+   // scanf("*[^\n]");
     printf("\nWould you like to try again? (1 for yes, 2 for no): ");
-    fgets(line,100,stdin);
-    userInput=atoi(line);
+    scanf("%d", &userInput);
+
 
     //Error check
-    errorCheckTest = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
+    errorCheckTest = errorCheck(userInput, 2, "\nDont you like to try again? (1 for yes, 2 for no): ");
     userInput=errorCheckTest.userInput;
 
     //places the user into a loop until they want to exit or guess correctly
     while (userInput == 1) {
       printf("\n\nWhere did it happen: (please enter an integer)");
-      fgets(line,100,stdin);
-      Guess.room=atoi(line);
+      scanf("%d", &userInput);
+
       //Error checking
       errorCheckTest = errorCheck(Guess.room, 7, "\nWhere did it happen: (please enter an integrer)");
       Guess.room=errorCheckTest.userInput;
@@ -989,8 +990,8 @@ int main() {
       } 
       else {
         printf("\nWould you like to try again? (1 for yes, 2 for no): ");
-        fgets(line,100,stdin);
-        userInput=atoi(line);
+        scanf("%d", &userInput);
+
 
         //Error check
         errorCheckTest = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
@@ -1132,7 +1133,7 @@ int main() {
 
     //Error checking
     errorCheckTest = errorCheck(userInput, 2, "\nWould you like to keep invesitgating? (1 for yes, 2 for no): ");
-        
+    userInput = errorCheckTest.userInput;
   }
   //Guess who is the murderer
   printf("\n\nWho is the murderer: (please enter an integer)");
@@ -1154,6 +1155,7 @@ int main() {
     //Error check
     errorCheckTest = errorCheck(userInput, 2, "\nWould you like to try again? (1 for yes, 2 for no): ");
     userInput = errorCheckTest.userInput;
+    
     while (userInput == 1) {
       printf("\n\nWho is the murderer: (please enter an integer)");
       scanf("%d", &Guess.murderer);
