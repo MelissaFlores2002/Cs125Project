@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //hard coding the damage for weapons based on .txt file which states them. Doubling damage if it is a critical strike.
