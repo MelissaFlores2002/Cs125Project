@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 /*function which scans the room the user is "in" and compares it to the room of the murder, giving specific clues based on the case
