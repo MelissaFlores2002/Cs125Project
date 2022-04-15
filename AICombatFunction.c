@@ -1,3 +1,4 @@
+/*
 //Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
@@ -43,7 +44,8 @@ Sequence AICombatFunction(int playerTurn){
     if (userAttack.target == computerBlock.target)
       userAttack.success = 0;
     else
-      userAttack.success = 1;
-	    return userAttack;
+     userAttack.success = 1;
+	//    return userAttack;
+  //}
   }
-}
+	*/
