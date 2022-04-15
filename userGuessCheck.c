@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //Ammending the text file, to show the correct and incorrect guesses
