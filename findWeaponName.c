@@ -20,3 +20,24 @@ void findWeaponName(int weaponNumber, char* weaponName){
   for (loopCounter = 0; loopCounter<lengthLine; loopCounter++){
     weaponName[loopCounter] = line[loopCounter+4];
   }
+  /*
+  finding length of weaponName so that we can begin to reallocate memory to eliminate any white spaces
+  after the string thus freeing up unnecessary memory
+  */
+  lengthWeaponName=strlen(weaponName);
+  for (loopCounter =0; loopCounter<lengthWeaponName; loopCounter++){
+    //running through the for loop until it reaches a space in the string
+    if (isspace(weaponName[loopCounter])){
+      /*
+      Upon finding a space, we will reallocate the amount of memory used by the string, shortening the
+      array of characters
+      */
+      numberOfSpacesInString++;
+      //after reading in two spaces, place the null character
+      if (numberOfSpacesInString == 2){
+        weaponName[loopCounter]='\0';
+        weaponName=realloc(weaponName, (loopCounter)*sizeof(char));
+      }
+    }
+  }
+}
