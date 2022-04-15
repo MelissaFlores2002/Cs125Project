@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //calling combatFunction that accomplishes the same thing as "AICombatFunction" but is instead for multi-player
