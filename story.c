@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //This function opens a .txt file for reading and prints the beginning of the storyline
