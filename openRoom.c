@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //this function opens a .txt file for reading which contains the list of rooms
