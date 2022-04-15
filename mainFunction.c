@@ -1113,7 +1113,7 @@ int main() {
 
   //The weapons randomized above are the choices for the weapon
   printf("\nYou are now in the room where the murder happened. You notice three weapons, all have some from of blood on them.");
-  printf("\nThe first one you notice is %d, then %d, then %d", weap1, weap2, weap3);
+  printf("\nThe weapons you see are %d, %d, and %d", weap1, weap2, weap3);
 
   //prompting the user to invesitgate the weapons
   printf("\nWhich one would you like to invesitgate first? (please type an integer): ");
