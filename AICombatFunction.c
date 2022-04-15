@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //function which takes into account the AI's random input and prompts the user to input themselves based on if the player is blocking or attacking
