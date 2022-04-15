@@ -1,3 +1,4 @@
+/*
 //Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
@@ -7,3 +8,4 @@ typedef struct combatInputs{
 		int success;
 } Sequence;
 
+*/
