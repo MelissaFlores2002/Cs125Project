@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 int criticalHitFunction(int target){
 /*rolls randomly between 1-10 to find critical hits, varies based on position of attack,
