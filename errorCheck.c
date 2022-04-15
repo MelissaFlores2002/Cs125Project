@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 /*creating a function which will take in the user's inputs, a range that the input cannot be greater than, 
