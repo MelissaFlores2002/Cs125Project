@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //clue function for weapons, these clues do not help the user to guess as all are randomized
