@@ -1,3 +1,4 @@
+#include <stdio.h>
 
 //opens a .txt file for reading which contains the list of weapons
 void openWeapons() {
