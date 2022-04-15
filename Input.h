@@ -1,3 +1,4 @@
+/*
 //Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
@@ -6,3 +7,4 @@ typedef struct inputs {
     int errorCheck;
     int userInput;
 } Input;
+*/
