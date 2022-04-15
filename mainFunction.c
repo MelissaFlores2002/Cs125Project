@@ -10,51 +10,46 @@
 #include "Input.h"
 #include "Sequence.h"
 
-
-//All of the functions we use have been put into sepreate .c files to make our main code cleaner
-//checks whether the users guess is correct or wrong, then ammends it to a file
-int userGuessCheck(int guess, int real);
-
-//how we check our user inputs 
-int errorCheck(int userInput, int range, char errorStatement[100]);
+//header files--these contain the function protoypes we use 
+#include "userGuessCheck.h"
+#include "errorCheck.h"
 
 //opening files for story/rules/lists
-void openRoom();
-void openFightRulesFile();
-void openWeapons();
-void openSuspects();
-void story(int y, int z);
+#include "openRoom.h"
+#include "openFightRulesFile.h"
+#include "openWeapons.h"
+#include "openSuspects.h"
+#include "story.h"
 
 //checking if the user has travled to a room already
-bool beenInRoomCheck(int room, int* roomsExplored, int* numberOfRooms);
+#include "beenInRoomCheck.h"
 
 //what the user gets to explore for the rooms 
-int explore(int room, int roomreal, int* roomsExploredStored, int* roomsExplored);
+#include "explore"
 
-//
-void testWeap(int input, int fakeWeaponOne, int fakeWeaponTwo, int realWeapon);
+//checking the weapons
+#include "testWeap.h"
 
 //letting the user investigate the suspects
-void investigate(int person, int murderer, int* innocentsArray);
+#include "investigate.h"
 
 //finding the strings for each of the portions for the fighting portion
-void findMurdererName(int murdererNumber, char* murdererName);
-void findWeaponName(int weaponNumber, char* weaponName);
-void findRoomName(int roomNumber, char* roomName);
+#include  "findMurdererName.h"
+#include  "findWeaponName.h"
+#include  "findRoomName.h"
 
 //Beginning combat functions
-int criticalHitFunction(int target);
-float damageFunction(int weapon, int critical);
-int AItargetFunction();
-Sequence AICombatFunction(int playerTurn);
-Sequence combatFunction(int attackingPlayerNumber, int blockingPlayerNumber);
+#include "criticalHitFunction.h"
+#include "damageFunction.h"
+#include "AItargetFunction.h"
+#include "AICombatFunction.h"
+#include "combatFunction.h"
 
 //single player mode function
-int singlePlayerFightSequence(int weaponOne, int weaponTwo);
+#include "singlePlayerFightSequence.h"
 
 //multiplayer mode function
-int multiPlayerFightSequence(int weaponOne, int weaponTwo);
-
+#include "multiPlayerFightSequence.h"
 
 //beginning main function
 int main() {
@@ -104,8 +99,8 @@ int main() {
   for (loopCounter=0; loopCounter<7; loopCounter++){
     printf("%d", innocentsArray[loopCounter]);
   }
-  //Error checking, we use this to speed through the code 
-  //printf("%d, %d, %d", murderer, weapon, room);
+  //Error checking, please delete before turning in
+  printf("%d, %d, %d", murderer, weapon, room);
 
   //The start of searching for the room
   printf("\n");
@@ -114,8 +109,8 @@ int main() {
 
   //promting the user to find out what room they'd like to explore
   printf("\nWhat room would you like to explore? (please enter a number): ");
-  scanf("%d", &userInput);
-
+  fgets(line,100,stdin);
+  userInput=atoi(line);
   //Error checking
   errorCheckTest = errorCheck(userInput, 7, "What room would you like to explore? (please enter an integer) ");
   userInput=errorCheckTest.userInput;
