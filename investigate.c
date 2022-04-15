@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 void investigate(int person, int murderer, int* innocentsArray) {
