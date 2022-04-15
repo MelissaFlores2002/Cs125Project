@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 
 //Multiplayer fight sequence taking in inputs from two parties, identical to "singlePlayerFightSequence" except using non-AI functions.
