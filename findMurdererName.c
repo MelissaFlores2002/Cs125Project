@@ -1,3 +1,4 @@
+//Melissa Flores and Hunter Difabio
 #include <stdio.h>
 /*function which grabs the integer value of the murderer and runs through the .txt file of murder suspects to match the integer to the line
 of the file, then it grabs that line as a string of characters and returns the string
