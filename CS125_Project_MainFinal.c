@@ -283,7 +283,7 @@ int main() {
   errorCheckTest = errorCheck(userInput, 7, "\nChoose who you would like to investigate (please enter a number): ");
   userInput = errorCheckTest.userInput;
 
-  //investigating the person given the user's input, giving clues for each innocentsArrayson
+  //investigating the person given the user's input, giving clues for each person
   investigate(userInput, murderer, innocentsArray);
 
   printf("\nWould you like to keep investigating? (1 for yes, 2 for no): ");
@@ -299,7 +299,7 @@ int main() {
     scanf("%d", &userInput);
 
     //Error checking
-    errorCheckTest = errorCheck(userInput, 7, "\nChoose who you would like to (please enter a number): ");
+    errorCheckTest = errorCheck(userInput, 7, "\nChoose who you would like to investigate (please enter a number): ");
     userInput = errorCheckTest.userInput;
 
     investigate(userInput, murderer, innocentsArray);
