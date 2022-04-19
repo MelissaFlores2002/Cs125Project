@@ -150,7 +150,7 @@ Input errorCheck(int userInput, int range, char errorStatement[100]){
     printf("\nInput is out of bounds, please try again. \n");
     errorCheckTest.errorCheck=1;
     while (errorCheckTest.errorCheck ==1){
-      printf("%s", errorStatement);
+      printf(" %s", errorStatement);
       fgets(line,100,stdin);
       errorCheckTest.userInput=atoi(line);
       errorCheckTest=errorCheck(errorCheckTest.userInput, range, errorStatement);
@@ -224,7 +224,7 @@ int explore(int room, int roomreal, int* roomsExploredStored, int* roomsExplored
       printf("One of the cupboards is out of place.\n");
     }
     printf("\nWould you like to investigate? (1 for yes, 2 for no): ");
-    scanf("%d", & exploreCheck.userInput);
+    scanf("%d", &exploreCheck.userInput);
     
     //Error checking
     exploreCheck = errorCheck(exploreCheck.userInput, 2, "\nWould you like to investigate? (1 for yes, 2 for no): ");
@@ -262,7 +262,7 @@ int explore(int room, int roomreal, int* roomsExploredStored, int* roomsExplored
     beenInRoom=beenInRoomCheck(1, roomsExploredStored, roomsExplored);
     printf("\nYou explore the Library.\n");
     if ((beenInRoom==false) && (roomreal==room)){
-      printf("\nThere seems to be some typ1e of blood on one of the books.\nAdditionally, you notice that there is a bookshelf slightly shifted.\n");
+      printf("\nThere seems to be some type of blood on one of the books.\nAdditionally, you notice that there is a bookshelf slightly shifted.\n");
     }
     else if ((beenInRoom==true) && (roomreal!=room)){
       printf("You find nothing out of the ordinary except the hidden passage to the Kitchen. \n");
@@ -310,7 +310,7 @@ int explore(int room, int roomreal, int* roomsExploredStored, int* roomsExplored
     beenInRoom=beenInRoomCheck(7, roomsExploredStored, roomsExplored);
     //if they haven't been in the Dining Room and it is the room of the murder, printf statements accordingly
     if ((beenInRoom==false) && (roomreal==room)){
-      printf("\nOne of the pool cues seems to be broken. innocentsArrayhaps someone tried to use it to fend the Murderer off.\nAdditionally, you notice a lift in the carpet.\n");
+      printf("\nOne of the pool cues seems to be broken. Perhaps someone tried to use it to fend the Murderer off.\nAdditionally, you notice a lift in the carpet.\n");
     }
     //if they have been in the Dining Room and the room is not the same as the room of the murder, printf accordingly
     else if ((beenInRoom==true) && (roomreal!=room)){
@@ -318,7 +318,7 @@ int explore(int room, int roomreal, int* roomsExploredStored, int* roomsExplored
     }
     //if they have been in the Dining Room and the room is the same as the room of the murder, printf accordingly
     else if ((beenInRoom==true) && (roomreal == room)) {
-      printf("\nOne of the pool cues seems to be broken. innocentsArrayhaps someone tried to use it to fend the Murderer off.\nThe hidden passage to the Dining Room is the only other noteworthy thing here\n");
+      printf("\nOne of the pool cues seems to be broken. Perhaps someone tried to use it to fend the Murderer off.\nThe hidden passage to the Dining Room is the only other noteworthy thing here\n");
     }
     //if they havent been in the Dining Room and it isnt the room of the murder, printf accordingly
     else if ((beenInRoom==false) && (roomreal != room)) {
@@ -370,7 +370,7 @@ int explore(int room, int roomreal, int* roomsExploredStored, int* roomsExplored
     }
     //if they have been in the Billiard Room and the room is the same as the room of the murder, printf accordingly
     else if ((beenInRoom==true) && (roomreal == room)) {
-      printf("\nhere is blood on the corner of the table. Someone tried to cover it up with the tablecloth.\nThe hidden passage to the Billiard Room is the only other noteworthy thing here\n");
+      printf("\nThere is blood on the corner of the table. Someone tried to cover it up with the tablecloth.\nThe hidden passage to the Billiard Room is the only other noteworthy thing here\n");
     }
     //if they havent been in the Billiard Room and it isnt the room of the murder, printf accordingly
     else if ((beenInRoom==false) && (roomreal != room)) {
