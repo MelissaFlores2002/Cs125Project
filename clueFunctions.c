@@ -38,8 +38,8 @@ void openFightRulesFile() {
     printf("ERROR opening file\n");
     return;
   }
-  //prints 30 lines from the txt file
-  for (x = 0; x < 30; x++) {
+  //prints 40 lines from the txt file
+  for (x = 0; x < 40; x++) {
     fgets(str, 2000000, f1);
     printf("%s", str);
   }
