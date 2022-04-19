@@ -8,7 +8,6 @@
 
 #include "clueStruct.h"
 
-void openExtraInfo();
 void openRoom();
 void openFightRulesFile();
 void openWeapons();
